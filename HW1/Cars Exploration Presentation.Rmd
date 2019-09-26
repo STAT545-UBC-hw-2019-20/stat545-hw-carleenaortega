@@ -17,9 +17,8 @@ Welcome to this presentation!
 
 ## **Table of Contents**
 
-- Summary of Cars Data
-- Plot
-- Table
+- Summary of Cars
+- Car Distance with respect to Speed
 
 ## **Summary of Cars**
 
