@@ -9,7 +9,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set
 library(tibble)
 library(DT)
 ```
@@ -25,13 +25,13 @@ Welcome to this presentation!
 
 ## **Summary of Cars**
 
-```{r cars, echo = FALSE}
+```{r cars}
 summary(cars)
 ```
 
 ## **Car Distance with respect to Speed**
 
-```{r pressure, echo=FALSE}
+```{r pressure}
 plot(cars$speed,cars$dist,xlab ="Distance",ylab="Speed")
 ```
 

@@ -17,23 +17,23 @@ library(DT)
 
 ## Population of Countries
 
-```{r echo=FALSE,results = 'asis'}
-library(DT)
-DT::datatable(gapminder)
+```{r}
+str(gapminder) #use str func
 ```
 
 ## Summary of Gapminder Data
 
-```{r echo=FALSE}
+```{r}
 summary(gapminder)
 ```
 
 ## Number of data collected per continent
 <!--from summary we can find the number of entries per continent and we can use this to make vectors -->
-```{r echo=FALSE}
+```{r}
 datapt<-c(624,300,396,360,24)
 cont<-c("Africa","Americas", "Asia", "Europe", "Oceania")
 
 ```
 
-<!--plot(cont,datapt)-->
+<!--plot(cont,datapt)--> #try to use gg plot
+#use a unique fnc instead of making a vector for datapt (no penalty but good practice)
