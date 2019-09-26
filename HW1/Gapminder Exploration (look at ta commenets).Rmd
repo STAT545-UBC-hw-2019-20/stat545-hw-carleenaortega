@@ -27,7 +27,6 @@ str(gapminder)
 
 ## Summary of Gapminder Data
 
-We summarize the gapminder data and show that life expectancy, populations and GDP per capita were collected between 1952 and 2007 in 5 continents. 
 ```{r}
 summary(gapminder)
 ```
@@ -45,5 +44,4 @@ plot(gapminder$continent,counts) #ggplots today
 #use a unique fnc instead of making a vector for datapt (no penalty but good practice)
 
 #use n_distinct to give the # of countries
-
 
