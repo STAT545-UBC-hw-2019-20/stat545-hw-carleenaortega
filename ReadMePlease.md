@@ -14,10 +14,10 @@ This repository contains my submissions for **STAT 545A Assignments** for Fall 2
 My name is Carleena Ortega :woman:. I moved from Toronto :snowman: to Vancouver :sunny: to pursue my Masters in Experimental Medicine at UBC. I am interested in learning the diverse applications of R and hopefully use it for my research and daily life!
 
 My interests include:
- -Gardening :herb: :hibiscus:
- -Animals :dog: :koala: 
- -Swimming :swimmer:
- -Nature :ocean: :deciduous_tree:
+* Gardening :herb: :hibiscus:
+* Animals :dog: :koala: 
+* Swimming :swimmer:
+* Nature :ocean: :deciduous_tree:
 
 
 
