@@ -5,7 +5,7 @@ This repository contains my submissions for **STAT 545A Assignments** for Fall 2
 |Status| Homework | Due Date |Link|
 | ----------- | ----------- | ----------- |----------- |
 |:radio_button:|HW1 | September 27 |[HW1](https://github.com/STAT545-UBC-hw-2019-20/stat545-hw-carleenaortega/tree/master/HW%232)|
-|:radio_button:|HW2 | September 27 |[HW2](https://github.com/STAT545-UBC-hw-2019-20/stat545-hw-carleenaortega)|
+|:radio_button:|HW2 | September 27 |[HW2](https://github.com/STAT545-UBC-hw-2019-20/stat545-hw-carleenaortega/tree/master/HW%232)|
 |:radio_button:|HW3 | October 1 ||
 |:radio_button:|HW4 | October 11 ||
 |:radio_button:|HW5 | October 18||
