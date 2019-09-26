@@ -2,7 +2,13 @@
 
 This repository contains my submissions for **STAT 545A Assignments** for Fall 2019 at UBC
 
-
+| Homework | Due Date |
+| ----------- | ----------- |
+|HW1 | September 27 |
+|HW2 | September 27 |
+|HW3 | October 1 |
+|HW4 | October 11 |
+|HW5 | October 18|
 
 ## Introduction
 My name is Carleena Ortega :woman:. I moved from Toronto :snowman: to Vancouver :sunny: to pursue my Masters in Experimental Medicine at UBC. I am interested in learning the diverse applications of R and hopefully use it for my research and daily life!
