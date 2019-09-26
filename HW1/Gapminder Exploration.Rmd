@@ -31,7 +31,7 @@ summary(gapminder)
 ## Number of data collected per continent
 <!--from summary we can find the number of entries per continent and we can use this to make vectors -->
 ```{r}
-group_by(gapminder$continent) @
+#group_by(gapminder$continent) @
 n_distinct(gapminder$country)
 ```
 
