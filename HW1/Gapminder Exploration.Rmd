@@ -33,6 +33,7 @@ summary(gapminder)
 ```{r echo=FALSE}
 datapt<-c(624,300,396,360,24)
 cont<-c("Africa","Americas", "Asia", "Europe", "Oceania")
+
 ```
 
 <!--plot(cont,datapt)-->
