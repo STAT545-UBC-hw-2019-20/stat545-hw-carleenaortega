@@ -1,24 +1,8 @@
----
-title: "STAT 545A Assignment 1"
-author: Carleena Ortega
-date: Sept 27, 2019
-output: 
-  html_document:
-    toc: true
-    number_sections: true
-    theme: yeti
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ## Overview
 
-This repository contains my submissions for **STAT 545A Assignment 1** for Fall 2019 at UBC
-This is the first exercise file
+This repository contains my submissions for **STAT 545A Assignments** for Fall 2019 at UBC
 
-##add more for guide
+
 
 ## Introduction
  library(prettydoc)
