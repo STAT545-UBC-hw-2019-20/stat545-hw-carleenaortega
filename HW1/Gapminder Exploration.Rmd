@@ -13,6 +13,7 @@ always_allow_html: yes
 library(gapminder)
 library(tibble)
 library(DT)
+library(tidyverse)
 ```
 
 ## Population of Countries
@@ -30,10 +31,12 @@ summary(gapminder)
 ## Number of data collected per continent
 <!--from summary we can find the number of entries per continent and we can use this to make vectors -->
 ```{r}
-datapt<-c(624,300,396,360,24)
-cont<-c("Africa","Americas", "Asia", "Europe", "Oceania")
-
+group_by(gapminder$continent) @
+n_distinct(gapminder$country)
 ```
 
 <!--plot(cont,datapt)--> #try to use gg plot
 #use a unique fnc instead of making a vector for datapt (no penalty but good practice)
+
+#use n_distinct to give the # of countries
+
