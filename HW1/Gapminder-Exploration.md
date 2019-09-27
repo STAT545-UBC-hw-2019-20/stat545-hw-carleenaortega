@@ -3,16 +3,21 @@ Exercise 2: R Markdown for Gapminder Exploration
 Carleena Ortega
 September 25 2019
 
-    ## ── Attaching packages ───────────────────────────────────────────────── tidyverse 1.2.1 ──
+  - [Population of Countries](#population-of-countries)
+  - [Summary of Gapminder Data](#summary-of-gapminder-data)
+  - [Number of data collected per
+    continent](#number-of-data-collected-per-continent)
 
-    ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
-    ## ✔ tidyr   1.0.0     ✔ dplyr   0.8.3
-    ## ✔ readr   1.3.1     ✔ stringr 1.4.0
-    ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
+    ## -- Attaching packages ------------------------------------------------------------------------------------------------- tidyverse 1.2.1 --
 
-    ## ── Conflicts ──────────────────────────────────────────────────── tidyverse_conflicts() ──
-    ## ✖ dplyr::filter() masks stats::filter()
-    ## ✖ dplyr::lag()    masks stats::lag()
+    ## v ggplot2 3.2.1     v purrr   0.3.2
+    ## v tidyr   1.0.0     v dplyr   0.8.3
+    ## v readr   1.3.1     v stringr 1.4.0
+    ## v ggplot2 3.2.1     v forcats 0.4.0
+
+    ## -- Conflicts ---------------------------------------------------------------------------------------------------- tidyverse_conflicts() --
+    ## x dplyr::filter() masks stats::filter()
+    ## x dplyr::lag()    masks stats::lag()
 
 ## Population of Countries
 
@@ -56,9 +61,11 @@ summary(gapminder)
 <!--from summary we can find the number of entries per continent and we can use this to make vectors -->
 
 ``` r
-datapt<-c(624,300,396,360,24)
-cont<-c("Africa","Americas", "Asia", "Europe", "Oceania")
+#group_by(gapminder$continent) @
+n_distinct(gapminder$country)
 ```
+
+    ## [1] 142
 
 <!--plot(cont,datapt)-->
 
