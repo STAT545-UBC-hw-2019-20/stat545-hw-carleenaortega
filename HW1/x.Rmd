@@ -1,0 +1,43 @@
+---
+title: "Untitled"
+author: "Carleena Ortega"
+date: "27/09/2019"
+output: ioslides_presentation
+---
+
+```{r, warning=FALSE} 
+suppressPackageStartupMessages(library(gapminder))
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(ggplot2))
+```
+
+# Data on Gapminder
+
+In this document, we will explore basic R functions on the gapminder data.
+
+## Population of Countries
+Here we show that gapminder has information on life expectancy, population, and GDP per capita of 142 countries from 1952
+```{r}
+str(gapminder)
+```
+
+## Summary of Gapminder Data
+
+We summarize the gapminder data and show that life expectancy, populations and GDP per capita were collected between 1952 and 2007 in 5 continents. 
+```{r}
+summary(gapminder)
+```
+
+## Number of Countries per continent in 1952
+Here we show the number of countries per continent that data was collected from when the study started in 1952.
+```{r}
+gapminder %>% 
+  arrange(country)%>%
+  filter(year == 1952) %>% 
+  mutate(continent = fct_infreq(continent)) %>% 
+  ggplot(aes(continent)) +
+  geom_bar(aes(colour=4,fill=4)) +
+  theme_light()
+```
+
