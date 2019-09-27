@@ -4,9 +4,11 @@ author: "Carleena Ortega"
 date: "September 27 2019"
 output:
   html_document:
+    keep_md: yes
     theme: yeti
     toc: yes
-    keep_md: true
+  pdf_document:
+    toc: yes
 always_allow_html: yes
 ---
 
@@ -80,5 +82,4 @@ gapminder %>%
 ```
 
 ![](Gapminder-Exploration_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
-
 
