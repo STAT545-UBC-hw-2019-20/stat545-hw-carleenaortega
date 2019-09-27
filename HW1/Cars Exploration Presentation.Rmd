@@ -1,23 +1,28 @@
 ---
 title: "Cars Presentation"
 author: "Carleena Ortega"
-date: "26/09/2019"
+date: "27/09/2019"
 output:
   beamer_presentation: default
+<<<<<<< HEAD
   slidy_presentation: default
   ioslides_presentation: default
+=======
+  ioslides_presentation: default
+  toc: yes
+>>>>>>> 2286eba279473b5ff1d17a81b6731aea0935c404
 ---
 
 ```{r setup, include=FALSE}
 options(tinytex.verbose = TRUE)
 knitr::opts_chunk$set
-library(tibble)
-library(DT)
 ```
 
 ## **Introduction**
 
-Welcome to this presentation!
+*Welcome to this presentation!*
+
+We will be exploring the **cars** data in this presentation
 
 ## **Table of Contents**
 
@@ -25,15 +30,15 @@ Welcome to this presentation!
 - Car Distance with respect to Speed
 
 ## **Summary of Cars**
-
+Here we show the cars data using the summary function. We see the the mean speed is 15.4 and the mean distance 42.98.
 ```{r cars}
 summary(cars)
 ```
 
 ## **Car Distance with respect to Speed**
-
-```{r pressure}
-plot(cars$speed,cars$dist,xlab ="Distance",ylab="Speed")
+We observe that there is a positive relationship between the variables as distance increases with speed.
+```{r, fig.width=6,fig.height=4}
+plot(cars$speed,cars$dist,xlab ="Speed",ylab="Distance")
 ```
 
 
