@@ -3,12 +3,13 @@ title: "Cars Presentation"
 author: "Carleena Ortega"
 date: "26/09/2019"
 output:
-  ioslides_presentation: default
-  slidy_presentation: default
   beamer_presentation: default
+  slidy_presentation: default
+  ioslides_presentation: default
 ---
 
 ```{r setup, include=FALSE}
+options(tinytex.verbose = TRUE)
 knitr::opts_chunk$set
 library(tibble)
 library(DT)
