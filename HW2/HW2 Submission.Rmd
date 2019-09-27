@@ -77,10 +77,10 @@ gapminder %>%
 Produce a scatterplot of Canada’s life expectancy vs. GDP per capita using ggplot2, without defining a new variable. That is, after filtering the gapminder data set, pipe it directly into the ggplot() function. Ensure GDP per capita is on a log scale.
 
 ```{r}
-gapminder %>%
-  filter(country == "Canada") %>%
-  ggplot(aes(gdpPercap,lifeExp)) +
-  geom_bar()
+#gapminder %>%
+ # filter(country == "Canada") %>%
+ # ggplot(aes(gdpPercap,lifeExp)) +
+  #geom_bar()
 
 ```
 
