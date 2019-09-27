@@ -3,6 +3,7 @@ title: "Cars Presentation"
 author: "Carleena Ortega"
 date: "27/09/2019"
 output:
+  beamer_presentation: default
   ioslides_presentation: default
   toc: yes
 ---
