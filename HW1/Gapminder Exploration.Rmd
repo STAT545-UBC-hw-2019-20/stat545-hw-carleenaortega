@@ -1,8 +1,9 @@
 ---
 title: 'Exercise 2: R Markdown for Gapminder Exploration'
 author: "Carleena Ortega"
-date: "September 25 2019"
+date: "September 27 2019"
 output: 
+  beamer_presentation: default
   github_document:
     toc: yes
 always_allow_html: yes
@@ -34,7 +35,7 @@ summary(gapminder)
 
 ## Number of data collected per continent
 <!--from summary we can find the number of entries per continent and we can use this to make vectors -->
-```{r}
+#```{r}
 gapminder %>%
 group_by(gapminder$continent)
 counts<-n_distinct(gapminder$country)
