@@ -30,10 +30,9 @@ summary(cars)
 ```
 
 ## **Car Distance with respect to Speed**
-Here we observe that there is a positive relationship between the variables as distance increases with speed.
-```{r}
+We observe that there is a positive relationship between the variables as distance increases with speed.
+```{r, fig.width=6,fig.height=4}
 plot(cars$speed,cars$dist,xlab ="Speed",ylab="Distance")
-
 ```
 
 
