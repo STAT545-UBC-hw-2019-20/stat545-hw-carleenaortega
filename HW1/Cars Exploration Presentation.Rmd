@@ -1,11 +1,10 @@
 ---
 title: "Cars Presentation"
 author: "Carleena Ortega"
-date: "26/09/2019"
+date: "27/09/2019"
 output:
   ioslides_presentation: default
-  slidy_presentation: default
-  beamer_presentation: default
+  toc: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -16,7 +15,7 @@ library(DT)
 
 ## **Introduction**
 
-Welcome to this presentation!
+*Welcome to this presentation!*
 
 ## **Table of Contents**
 
