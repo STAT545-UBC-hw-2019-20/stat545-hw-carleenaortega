@@ -50,15 +50,40 @@ filtered %>%
 ```
 
 ## 1.3 Drop in Life Expectancy
-Filter gapminder to all entries that have experienced a drop in life expectancy. Be sure to include a new variable that's the increase in life expectancy in your tibble. Hint: you might find the lag() or diff() functions useful
+Filter gapminder to all entries that have experienced a drop in life expectancy. Be sure to include a new variable that's the increase in life expectancy in your tibble. Hint: you might find the lag() or diff() functions useful.
 
 
+```r
+gapminder %>%
+  group_by(country) %>%
+  arrange(country,year) %>%
+  mutate(change_LE=lifeExp-lag(lifeExp)) %>%
+  filter(change_LE<0) 
+```
 
-## 1.4 
+```
+## # A tibble: 102 x 7
+## # Groups:   country [52]
+##    country  continent  year lifeExp     pop gdpPercap change_LE
+##    <fct>    <fct>     <int>   <dbl>   <int>     <dbl>     <dbl>
+##  1 Albania  Europe     1992    71.6 3326498     2497.    -0.419
+##  2 Angola   Africa     1987    39.9 7874230     2430.    -0.036
+##  3 Benin    Africa     2002    54.4 7026113     1373.    -0.371
+##  4 Botswana Africa     1992    62.7 1342614     7954.    -0.877
+##  5 Botswana Africa     1997    52.6 1536536     8647.   -10.2  
+##  6 Botswana Africa     2002    46.6 1630347    11004.    -5.92 
+##  7 Bulgaria Europe     1977    70.8 8797022     7612.    -0.09 
+##  8 Bulgaria Europe     1992    71.2 8658506     6303.    -0.15 
+##  9 Bulgaria Europe     1997    70.3 8066057     5970.    -0.87 
+## 10 Burundi  Africa     1992    44.7 5809236      632.    -3.48 
+## # ... with 92 more rows
+```
+
+## 1.4  
 
 Choose one of the following:
 
-    Filter gapminder so that it shows the max GDP per capita experienced by each country. Hint: you might find the max() function useful here.
+    __Filter gapminder so that it shows the max GDP per capita experienced by each country. Hint: you might find the max() function useful here.__
 
 OR
 
@@ -66,12 +91,46 @@ OR
 
 
 
+```r
+gapminder %>%
+  group_by(country) %>%
+  arrange(country,gdpPercap) %>%
+  filter(gdpPercap==max(gdpPercap))
+```
+
+```
+## # A tibble: 142 x 6
+## # Groups:   country [142]
+##    country     continent  year lifeExp       pop gdpPercap
+##    <fct>       <fct>     <int>   <dbl>     <int>     <dbl>
+##  1 Afghanistan Asia       1982    39.9  12881816      978.
+##  2 Albania     Europe     2007    76.4   3600523     5937.
+##  3 Algeria     Africa     2007    72.3  33333216     6223.
+##  4 Angola      Africa     1967    36.0   5247469     5523.
+##  5 Argentina   Americas   2007    75.3  40301927    12779.
+##  6 Australia   Oceania    2007    81.2  20434176    34435.
+##  7 Austria     Europe     2007    79.8   8199783    36126.
+##  8 Bahrain     Asia       2007    75.6    708573    29796.
+##  9 Bangladesh  Asia       2007    64.1 150448339     1391.
+## 10 Belgium     Europe     2007    79.4  10392226    33693.
+## # ... with 132 more rows
+```
 
 ## 1.5 
 
 Produce a scatterplot of Canada’s life expectancy vs. GDP per capita using ggplot2, without defining a new variable. That is, after filtering the gapminder data set, pipe it directly into the ggplot() function. Ensure GDP per capita is on a log scale.
 
 
+```r
+gapminder %>%
+  filter(country == "Canada") %>%
+  ggplot(aes(gdpPercap,lifeExp)) +
+  scale_x_log10() +
+  geom_jitter(colour="blue",) +
+  labs(x="A",y="B", title="C")
+```
+
+![](HW2-Submission_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
 # Exercise 2
 

@@ -414,18 +414,64 @@ summary {
 </div>
 <div id="drop-in-life-expectancy" class="section level2">
 <h2>1.3 Drop in Life Expectancy</h2>
-<p>Filter gapminder to all entries that have experienced a drop in life expectancy. Be sure to include a new variable that’s the increase in life expectancy in your tibble. Hint: you might find the lag() or diff() functions useful</p>
+<p>Filter gapminder to all entries that have experienced a drop in life expectancy. Be sure to include a new variable that’s the increase in life expectancy in your tibble. Hint: you might find the lag() or diff() functions useful.</p>
+<pre class="r"><code>gapminder %&gt;%
+  group_by(country) %&gt;%
+  arrange(country,year) %&gt;%
+  mutate(change_LE=lifeExp-lag(lifeExp)) %&gt;%
+  filter(change_LE&lt;0) </code></pre>
+<pre><code>## # A tibble: 102 x 7
+## # Groups:   country [52]
+##    country  continent  year lifeExp     pop gdpPercap change_LE
+##    &lt;fct&gt;    &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 Albania  Europe     1992    71.6 3326498     2497.    -0.419
+##  2 Angola   Africa     1987    39.9 7874230     2430.    -0.036
+##  3 Benin    Africa     2002    54.4 7026113     1373.    -0.371
+##  4 Botswana Africa     1992    62.7 1342614     7954.    -0.877
+##  5 Botswana Africa     1997    52.6 1536536     8647.   -10.2  
+##  6 Botswana Africa     2002    46.6 1630347    11004.    -5.92 
+##  7 Bulgaria Europe     1977    70.8 8797022     7612.    -0.09 
+##  8 Bulgaria Europe     1992    71.2 8658506     6303.    -0.15 
+##  9 Bulgaria Europe     1997    70.3 8066057     5970.    -0.87 
+## 10 Burundi  Africa     1992    44.7 5809236      632.    -3.48 
+## # ... with 92 more rows</code></pre>
 </div>
 <div id="section" class="section level2">
 <h2>1.4</h2>
 <p>Choose one of the following:</p>
-<pre><code>Filter gapminder so that it shows the max GDP per capita experienced by each country. Hint: you might find the max() function useful here.</code></pre>
+<pre><code>__Filter gapminder so that it shows the max GDP per capita experienced by each country. Hint: you might find the max() function useful here.__</code></pre>
 <p>OR</p>
 <pre><code>Filter gapminder to contain six rows: the rows with the three largest GDP per capita, and the rows with the three smallest GDP per capita. Be sure to not create any intermediate objects when doing this (with, for example, the assignment operator). Hint: you might find the sort() function useful, or perhaps even the dplyr::slice() function.</code></pre>
+<pre class="r"><code>gapminder %&gt;%
+  group_by(country) %&gt;%
+  arrange(country,gdpPercap) %&gt;%
+  filter(gdpPercap==max(gdpPercap))</code></pre>
+<pre><code>## # A tibble: 142 x 6
+## # Groups:   country [142]
+##    country     continent  year lifeExp       pop gdpPercap
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+##  1 Afghanistan Asia       1982    39.9  12881816      978.
+##  2 Albania     Europe     2007    76.4   3600523     5937.
+##  3 Algeria     Africa     2007    72.3  33333216     6223.
+##  4 Angola      Africa     1967    36.0   5247469     5523.
+##  5 Argentina   Americas   2007    75.3  40301927    12779.
+##  6 Australia   Oceania    2007    81.2  20434176    34435.
+##  7 Austria     Europe     2007    79.8   8199783    36126.
+##  8 Bahrain     Asia       2007    75.6    708573    29796.
+##  9 Bangladesh  Asia       2007    64.1 150448339     1391.
+## 10 Belgium     Europe     2007    79.4  10392226    33693.
+## # ... with 132 more rows</code></pre>
 </div>
 <div id="section-1" class="section level2">
 <h2>1.5</h2>
 <p>Produce a scatterplot of Canada’s life expectancy vs. GDP per capita using ggplot2, without defining a new variable. That is, after filtering the gapminder data set, pipe it directly into the ggplot() function. Ensure GDP per capita is on a log scale.</p>
+<pre class="r"><code>gapminder %&gt;%
+  filter(country == &quot;Canada&quot;) %&gt;%
+  ggplot(aes(gdpPercap,lifeExp)) +
+  scale_x_log10() +
+  geom_jitter(colour=&quot;blue&quot;,) +
+  labs(x=&quot;A&quot;,y=&quot;B&quot;, title=&quot;C&quot;)</code></pre>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
 </div>
 </div>
 <div id="exercise-2" class="section level1">
