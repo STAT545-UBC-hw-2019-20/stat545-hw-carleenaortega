@@ -83,7 +83,7 @@ gapminder %>%
 
 Choose one of the following:
 
-    __Filter gapminder so that it shows the max GDP per capita experienced by each country. Hint: you might find the max() function useful here.__
+    ** Filter gapminder so that it shows the max GDP per capita experienced by each country. Hint: you might find the max() function useful here. **
 
 OR
 
@@ -124,10 +124,11 @@ Produce a scatterplot of Canada’s life expectancy vs. GDP per capita using ggp
 ```r
 gapminder %>%
   filter(country == "Canada") %>%
-  ggplot(aes(gdpPercap,lifeExp)) +
-  scale_x_log10() +
-  geom_jitter(colour="blue",) +
-  labs(x="A",y="B", title="C")
+  ggplot(aes(x=log(gdpPercap),lifeExp)) +
+  scale_x_log10(limits=c(9,11)) +
+  geom_point(colour="blue",) +
+  labs(x="log(GDP per capita)",y="Life Expectancy", title="Canada's Life Expectancy Increases with GDP per capita") +
+  theme_bw()
 ```
 
 ![](HW2-Submission_files/figure-html/unnamed-chunk-5-1.png)<!-- -->

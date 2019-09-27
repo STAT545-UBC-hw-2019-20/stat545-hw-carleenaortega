@@ -3,11 +3,11 @@ title: 'HW2: Explore Gapminder and use dplyr'
 author: "Carleena Ortega"
 date: "27/09/2019"
 output:
-  pdf_document: null
   html_document:
     keep_md: yes
     theme: cerulean
     toc: yes
+  pdf_document: null
   word_document:
     toc: yes
   always_allow_html: yes
@@ -79,11 +79,12 @@ Produce a scatterplot of Canada’s life expectancy vs. GDP per capita using ggp
 ```{r}
 gapminder %>%
   filter(country == "Canada") %>%
-  ggplot(aes(gdpPercap,lifeExp)) +
-  scale_x_log10() +
-  geom_jitter(colour="blue",) +
-  labs(x="A",y="B", title="C")
-  
+  ggplot(aes(x=log(gdpPercap),lifeExp)) +
+  scale_x_log10(limits=c(9,11)) +
+  geom_point(colour="blue",) +
+  labs(x="log(GDP per capita)",y="Life Expectancy", title="Canada's Life Expectancy Increases with GDP per capita") +
+  theme_bw()
+
 
 ```
 
