@@ -3,11 +3,11 @@ title: 'HW2: Explore Gapminder and use dplyr'
 author: "Carleena Ortega"
 date: "27/09/2019"
 output:
-  pdf_document: null
   html_document:
     keep_md: yes
     theme: cerulean
     toc: yes
+  pdf_document: null
   word_document:
     toc: yes
   always_allow_html: yes
@@ -19,18 +19,21 @@ suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(tibble))
 suppressPackageStartupMessages(library(gapminder))
+suppressPackageStartupMessages(library(knitr))
+suppressPackageStartupMessages(library(kableExtra))
 ```
 
 # Exercise 1
 ## 1.1 Filter
 Use `filter()` to subset the `gapminder` data to three countries of your choice in the 1970’s.
 ```{r}
-
 filtered <- gapminder %>%
   arrange(year) %>%
   filter(year > 1969, year < 1980, country == "Canada" | country == "Mexico" 
     | country == "Brazil") %>%
   arrange(country)
+knitr::kable(filtered) %>%
+  kable_styling(bootstrap_options = "striped")
 ```
 
 
@@ -54,12 +57,12 @@ gapminder %>%
 
 ```
 
-## 1.4 Max()
+## 1.4 Max
 
 Choose one of the following:
 
 **Filter gapminder so that it shows the max GDP per capita experienced by each country. 
-Hint: you might find the max() function useful here.**
+    Hint: you might find the max() function useful here.**
 
 OR
 
@@ -76,7 +79,7 @@ gapminder %>%
   filter(gdpPercap==max(gdpPercap))
 ```
 
-## 1.5 
+## 1.5 Scatterplot
 
 Produce a scatterplot of Canada’s life expectancy vs. GDP per capita using ggplot2, without defining a new variable. That is, after filtering the gapminder data set, pipe it directly into the ggplot() function. Ensure GDP per capita is on a log scale.
 
@@ -141,13 +144,15 @@ gapminder %>%
   group_by(continent) %>%
   summarize(stdE_pop = sd(pop)/sqrt(n()))
 ```
+
 The ranges of population for each continent is shown below:
 ```{r}
 gapminder %>%
   group_by(continent) %>%
   summarize(min(pop),max(pop))
 ```
-This shows that Asia has the most population at 1,318,683,096 and Africa had the least at 60,011, which also provide the range of the population for the entire data set.
+
+This shows that Asia has the most population at 1,318,683,096 and Africa had the least at 60,011. Hence, the range of population amongst all continents is from 60,011 to 1,318,683,096
 
 # Exercise 3
   
@@ -158,7 +163,30 @@ This shows that Asia has the most population at 1,318,683,096 and Africa had the
 
 You don’t have to use all the data in every plot! It’s fine to filter down to one country or a small handful of countries.
 
+## 3.1 Scatterplot
+
+For this exercise, we will explore the relationship between the population and the life expectancy of Canada.
+
 ```{r}
+gapminder %>%
+  filter(country=="Canada") %>%
+  ggplot(aes(pop, lifeExp, pop)) +
+  geom_point()+
+  labs(y="Life Expectancy", x="Population", title="The Life Expectancy of Canadians with respect to Population") +
+  theme_light()
+
+```
+
+From this plot, we can observe the increase in Canadian life expectancy as population increases. This may be due to the increase in caretakers available for the aged population, more people pursue research that promote longevity and improved quality of life.
+
+## 3.2 
+```{r}
+gapminder %>%
+  filter(country=="Canada") %>%
+  ggplot(aes(lifeExp, pop)) +
+  geom_smooth()+
+  labs(x="Life Expectancy", y="Population", title="The Life Expectancy of Canadians with respect to Population") +
+  theme_light()
 
 ```
 
@@ -170,6 +198,16 @@ For people who want to take things further.
 
 Evaluate this code and describe the result. Presumably the analyst’s intent was to get the data for Rwanda and Afghanistan. Did they succeed? Why or why not? If not, what is the correct way to do this?
 
+filter(gapminder, country == c("Rwanda", "Afghanistan"))
+
+```{r}
+x<-filter(gapminder, country == c("Rwanda", "Afghanistan")) 
+DT::datatable(x)
+```
+Upon entering that code, the gapminder data for Rwanda and Afghanistan appear and the analyst can continue to work on it (e.g. via piping)
+
 ## Bonus 2
 
 Present numerical tables in a more attractive form using knitr::kable() for small tibbles (say, up to 10 rows), and DT::datatable() for larger tibbles.
+
+* Please refer to Exercise 1.1 and Bonus 1*
