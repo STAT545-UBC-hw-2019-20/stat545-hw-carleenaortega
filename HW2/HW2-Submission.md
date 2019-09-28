@@ -168,8 +168,52 @@ For this exercise, we will use `continent` as a categorical variable and `pop` a
 
 ![](HW2-Submission_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 
+We can also view this data as a table:
+
+```r
+gapminder %>% 
+  filter(year == 1952) %>% 
+  group_by(continent) %>% 
+  summarize(number_of_countries = mean(length(country)))
+```
+
+```
+## # A tibble: 5 x 2
+##   continent number_of_countries
+##   <fct>                   <dbl>
+## 1 Africa                     52
+## 2 Americas                   25
+## 3 Asia                       33
+## 4 Europe                     30
+## 5 Oceania                     2
+```
+
 ## 2.2 Gapminder Pop
 
+The mean population of the countries over the years are shown below:
+
+```r
+gapminder %>% 
+  group_by(country) %>%
+  summarize(mean_popuplation=mean(pop))
+```
+
+```
+## # A tibble: 142 x 2
+##    country     mean_popuplation
+##    <fct>                  <dbl>
+##  1 Afghanistan        15823715.
+##  2 Albania             2580249.
+##  3 Algeria            19875406.
+##  4 Angola              7309390.
+##  5 Argentina          28602240.
+##  6 Australia          14649312.
+##  7 Austria             7583298.
+##  8 Bahrain              373913.
+##  9 Bangladesh         90755395.
+## 10 Belgium             9725119.
+## # … with 132 more rows
+```
 
 # Exercise 3
   
