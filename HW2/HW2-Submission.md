@@ -76,7 +76,7 @@ gapminder %>%
 ##  8 Bulgaria Europe     1992    71.2 8658506     6303.    -0.15 
 ##  9 Bulgaria Europe     1997    70.3 8066057     5970.    -0.87 
 ## 10 Burundi  Africa     1992    44.7 5809236      632.    -3.48 
-## # ... with 92 more rows
+## # … with 92 more rows
 ```
 
 ## 1.4  
@@ -113,7 +113,7 @@ gapminder %>%
 ##  8 Bahrain     Asia       2007    75.6    708573    29796.
 ##  9 Bangladesh  Asia       2007    64.1 150448339     1391.
 ## 10 Belgium     Europe     2007    79.4  10392226    33693.
-## # ... with 132 more rows
+## # … with 132 more rows
 ```
 
 ## 1.5 
@@ -136,6 +136,9 @@ gapminder %>%
 # Exercise 2
 
 Pick one categorical variable and one quantitative variable to explore. Answer the following questions in whichever way you think is appropriate, using dplyr:
+
+For this exercise, we will use `continent` as a categorical variable and `pop` as quantitative variable from the  `gapminder` data set.
+
 
     What are possible values (or range, whichever is appropriate) of each variable?
     What values are typical? What’s the spread? What’s the distribution? Etc., tailored to the variable at hand.
