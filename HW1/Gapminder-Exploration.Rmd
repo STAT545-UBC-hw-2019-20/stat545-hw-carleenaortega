@@ -3,11 +3,12 @@ title: 'Exercise 2: R Markdown for Gapminder Exploration'
 author: "Carleena Ortega"
 date: "September 27 2019"
 output:
+  pdf_document:
+    toc: yes
+  ioslides_presentation:
   html_document:
     keep_md: yes
     theme: yeti
-    toc: yes
-  pdf_document:
     toc: yes
 always_allow_html: yes
 ---
@@ -44,7 +45,7 @@ gapminder %>%
   filter(year == 1952) %>% 
   mutate(continent = fct_infreq(continent)) %>% 
   ggplot(aes(continent)) +
-  geom_bar(aes(colour=4,fill=4)) +
+  geom_bar(aes()) +
   theme_light()
 ```
 

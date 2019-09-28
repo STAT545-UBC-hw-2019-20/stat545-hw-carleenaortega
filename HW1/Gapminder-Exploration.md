@@ -7,6 +7,7 @@ output:
     keep_md: yes
     theme: yeti
     toc: yes
+  ioslides_presentation:
   pdf_document:
     toc: yes
 always_allow_html: yes
@@ -77,7 +78,7 @@ gapminder %>%
   filter(year == 1952) %>% 
   mutate(continent = fct_infreq(continent)) %>% 
   ggplot(aes(continent)) +
-  geom_bar(aes(colour=4,fill=4)) +
+  geom_bar(aes()) +
   theme_light()
 ```
 
