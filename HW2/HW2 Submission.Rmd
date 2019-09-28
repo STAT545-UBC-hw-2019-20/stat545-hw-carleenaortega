@@ -3,7 +3,7 @@ title: 'HW2: Explore Gapminder and use dplyr'
 author: "Carleena Ortega"
 date: "27/09/2019"
 output:
-  pdf_document: null
+  pdf_document:
   html_document:
     keep_md: yes
     theme: cerulean
@@ -32,8 +32,7 @@ filtered <- gapminder %>%
   filter(year > 1969, year < 1980, country == "Canada" | country == "Mexico" 
     | country == "Brazil") %>%
   arrange(country)
-knitr::kable(filtered) %>%
-  kable_styling(bootstrap_options = "striped")
+knitr::kable(filtered)
 ```
 
 
@@ -202,7 +201,7 @@ filter(gapminder, country == c("Rwanda", "Afghanistan"))
 
 ```{r}
 x<-filter(gapminder, country == c("Rwanda", "Afghanistan")) 
-DT::datatable(x)
+knitr::kable(x)
 ```
 Upon entering that code, the gapminder data for Rwanda and Afghanistan appear and the analyst can continue to work on it (e.g. via piping)
 
@@ -210,4 +209,4 @@ Upon entering that code, the gapminder data for Rwanda and Afghanistan appear an
 
 Present numerical tables in a more attractive form using knitr::kable() for small tibbles (say, up to 10 rows), and DT::datatable() for larger tibbles.
 
-* Please refer to Exercise 1.1 and Bonus 1*
+*Please refer to Exercise 1.1 and Bonus 1*

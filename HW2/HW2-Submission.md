@@ -7,7 +7,7 @@ output:
     keep_md: yes
     theme: cerulean
     toc: yes
-  pdf_document: null
+  pdf_document:
   word_document:
     toc: yes
   always_allow_html: yes
@@ -341,7 +341,7 @@ gapminder %>%
 
 From this plot, we can observe the increase in Canadian life expectancy as population increases. This may be due to the increase in caretakers available for the aged population, more people pursue research that promote longevity and improved quality of life.
 
-## 3.2 
+## 3.2 Smooth plot
 
 ```r
 gapminder %>%
@@ -371,11 +371,120 @@ filter(gapminder, country == c("Rwanda", "Afghanistan"))
 
 ```r
 x<-filter(gapminder, country == c("Rwanda", "Afghanistan")) 
-DT::datatable(x)
+knitr::kable(x) %>%
+  kable_styling("hover",full_width = T)
 ```
 
-<!--html_preserve--><div id="htmlwidget-ccee3c33065d7bb8402f" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ccee3c33065d7bb8402f">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["Afghanistan","Afghanistan","Afghanistan","Afghanistan","Afghanistan","Afghanistan","Rwanda","Rwanda","Rwanda","Rwanda","Rwanda","Rwanda"],["Asia","Asia","Asia","Asia","Asia","Asia","Africa","Africa","Africa","Africa","Africa","Africa"],[1957,1967,1977,1987,1997,2007,1952,1962,1972,1982,1992,2002],[30.332,34.02,38.438,40.822,41.763,43.828,40,43,44.6,46.218,23.599,43.413],[9240934,11537966,14880372,13867957,22227415,31889923,2534927,3051242,3992121,5507565,7290203,7852401],[820.8530296,836.1971382,786.11336,852.3959448,635.341351,974.5803384,493.3238752,597.4730727,590.5806638,881.5706467,737.0685949,785.6537648]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>country<\/th>\n      <th>continent<\/th>\n      <th>year<\/th>\n      <th>lifeExp<\/th>\n      <th>pop<\/th>\n      <th>gdpPercap<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<table class="table table-hover" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> country </th>
+   <th style="text-align:left;"> continent </th>
+   <th style="text-align:right;"> year </th>
+   <th style="text-align:right;"> lifeExp </th>
+   <th style="text-align:right;"> pop </th>
+   <th style="text-align:right;"> gdpPercap </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Afghanistan </td>
+   <td style="text-align:left;"> Asia </td>
+   <td style="text-align:right;"> 1957 </td>
+   <td style="text-align:right;"> 30.332 </td>
+   <td style="text-align:right;"> 9240934 </td>
+   <td style="text-align:right;"> 820.8530 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Afghanistan </td>
+   <td style="text-align:left;"> Asia </td>
+   <td style="text-align:right;"> 1967 </td>
+   <td style="text-align:right;"> 34.020 </td>
+   <td style="text-align:right;"> 11537966 </td>
+   <td style="text-align:right;"> 836.1971 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Afghanistan </td>
+   <td style="text-align:left;"> Asia </td>
+   <td style="text-align:right;"> 1977 </td>
+   <td style="text-align:right;"> 38.438 </td>
+   <td style="text-align:right;"> 14880372 </td>
+   <td style="text-align:right;"> 786.1134 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Afghanistan </td>
+   <td style="text-align:left;"> Asia </td>
+   <td style="text-align:right;"> 1987 </td>
+   <td style="text-align:right;"> 40.822 </td>
+   <td style="text-align:right;"> 13867957 </td>
+   <td style="text-align:right;"> 852.3959 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Afghanistan </td>
+   <td style="text-align:left;"> Asia </td>
+   <td style="text-align:right;"> 1997 </td>
+   <td style="text-align:right;"> 41.763 </td>
+   <td style="text-align:right;"> 22227415 </td>
+   <td style="text-align:right;"> 635.3414 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Afghanistan </td>
+   <td style="text-align:left;"> Asia </td>
+   <td style="text-align:right;"> 2007 </td>
+   <td style="text-align:right;"> 43.828 </td>
+   <td style="text-align:right;"> 31889923 </td>
+   <td style="text-align:right;"> 974.5803 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rwanda </td>
+   <td style="text-align:left;"> Africa </td>
+   <td style="text-align:right;"> 1952 </td>
+   <td style="text-align:right;"> 40.000 </td>
+   <td style="text-align:right;"> 2534927 </td>
+   <td style="text-align:right;"> 493.3239 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rwanda </td>
+   <td style="text-align:left;"> Africa </td>
+   <td style="text-align:right;"> 1962 </td>
+   <td style="text-align:right;"> 43.000 </td>
+   <td style="text-align:right;"> 3051242 </td>
+   <td style="text-align:right;"> 597.4731 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rwanda </td>
+   <td style="text-align:left;"> Africa </td>
+   <td style="text-align:right;"> 1972 </td>
+   <td style="text-align:right;"> 44.600 </td>
+   <td style="text-align:right;"> 3992121 </td>
+   <td style="text-align:right;"> 590.5807 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rwanda </td>
+   <td style="text-align:left;"> Africa </td>
+   <td style="text-align:right;"> 1982 </td>
+   <td style="text-align:right;"> 46.218 </td>
+   <td style="text-align:right;"> 5507565 </td>
+   <td style="text-align:right;"> 881.5706 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rwanda </td>
+   <td style="text-align:left;"> Africa </td>
+   <td style="text-align:right;"> 1992 </td>
+   <td style="text-align:right;"> 23.599 </td>
+   <td style="text-align:right;"> 7290203 </td>
+   <td style="text-align:right;"> 737.0686 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rwanda </td>
+   <td style="text-align:left;"> Africa </td>
+   <td style="text-align:right;"> 2002 </td>
+   <td style="text-align:right;"> 43.413 </td>
+   <td style="text-align:right;"> 7852401 </td>
+   <td style="text-align:right;"> 785.6538 </td>
+  </tr>
+</tbody>
+</table>
 Upon entering that code, the gapminder data for Rwanda and Afghanistan appear and the analyst can continue to work on it (e.g. via piping)
 
 ## Bonus 2
