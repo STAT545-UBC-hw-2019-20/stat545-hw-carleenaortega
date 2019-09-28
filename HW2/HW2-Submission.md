@@ -130,7 +130,7 @@ gapminder %>%
   filter(country == "Canada") %>%
   ggplot(aes(x=log(gdpPercap),lifeExp)) +
   scale_x_log10(limits=c(9,11)) +
-  geom_point(colour="blue",) +
+  geom_point(colour="blue") +
   labs(x="log(GDP per capita)",
     y="Life Expectancy", 
     title="Canada's Life Expectancy Increases with GDP per capita") +
@@ -148,7 +148,10 @@ Feel free to use summary stats, tables, figures.
 
 For this exercise, we will use `continent` as a categorical variable and `pop` as quantitative variable from the  `gapminder` data set.
 
- We can see that there are 5 continents and
+## 2.1 Gapminder Continent
+
+ We can see that there are 5 continents: **Africa, Asia, Europe, Americas, and Oceania**
+ Africa has the most number of continents and Oceania with the fewest countries.
 
 ```r
   gapminder %>% 
@@ -156,7 +159,7 @@ For this exercise, we will use `continent` as a categorical variable and `pop` a
   filter(year == 1952) %>% 
   mutate(continent = fct_infreq(continent)) %>% 
   ggplot(aes(continent)) +
-  geom_bar(aes(colour=2,fill=2)) +
+  geom_bar(colour="3",fill="3") +
   labs(x="Continent",
     y="Number of Countries", 
     title="Number of Countries per Continent") +
@@ -164,7 +167,9 @@ For this exercise, we will use `continent` as a categorical variable and `pop` a
 ```
 
 ![](HW2-Submission_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
-    
+
+## 2.2 Gapminder Pop
+
 
 # Exercise 3
   

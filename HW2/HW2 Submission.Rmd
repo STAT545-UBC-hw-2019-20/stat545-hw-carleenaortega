@@ -3,11 +3,11 @@ title: 'HW2: Explore Gapminder and use dplyr'
 author: "Carleena Ortega"
 date: "27/09/2019"
 output:
+  pdf_document: null
   html_document:
     keep_md: yes
     theme: cerulean
     toc: yes
-  pdf_document: null
   word_document:
     toc: yes
   always_allow_html: yes
@@ -85,7 +85,7 @@ gapminder %>%
   filter(country == "Canada") %>%
   ggplot(aes(x=log(gdpPercap),lifeExp)) +
   scale_x_log10(limits=c(9,11)) +
-  geom_point(colour="blue",) +
+  geom_point(colour="blue") +
   labs(x="log(GDP per capita)",
     y="Life Expectancy", 
     title="Canada's Life Expectancy Increases with GDP per capita") +
@@ -101,21 +101,24 @@ Feel free to use summary stats, tables, figures.
 
 For this exercise, we will use `continent` as a categorical variable and `pop` as quantitative variable from the  `gapminder` data set.
 
- We can see that there are 5 continents and
+## 2.1 Gapminder Continent
+
+ We can see that there are 5 continents: **Africa, Asia, Europe, Americas, and Oceania**
+ Africa has the most number of continents and Oceania with the fewest countries.
 ```{r}
   gapminder %>% 
   arrange(country)%>%
   filter(year == 1952) %>% 
   mutate(continent = fct_infreq(continent)) %>% 
   ggplot(aes(continent)) +
-  geom_bar(aes(colour=2,fill=2)) +
+  geom_bar(colour="3",fill="3") +
   labs(x="Continent",
     y="Number of Countries", 
     title="Number of Countries per Continent") +
   theme_bw()
 ```
-    
 
+## 2.2 Gapminder Pop
 # Exercise 3
   
   Make two plots that have some value to them. That is, plots that someone might actually consider making for an analysis. Just don’t make the same plots we made in class – feel free to use a data set from the datasets R package if you wish.
