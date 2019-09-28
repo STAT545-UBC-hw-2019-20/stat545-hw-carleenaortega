@@ -3,11 +3,11 @@ title: 'HW2: Explore Gapminder and use dplyr'
 author: "Carleena Ortega"
 date: "27/09/2019"
 output:
+  pdf_document: null
   html_document:
     keep_md: yes
     theme: cerulean
     toc: yes
-  pdf_document: null
   word_document:
     toc: yes
   always_allow_html: yes
@@ -102,11 +102,11 @@ What are possible values (or range, whichever is appropriate) of each variable?
 What values are typical? What’s the spread? What’s the distribution? Etc., tailored to the variable at hand.
 Feel free to use summary stats, tables, figures.
 
-For this exercise, we will use `continent` as a categorical variable and `pop` as quantitative variable from the  `gapminder` data set.
-
 ## 2.1 Gapminder Continent
 
- We can see that there are 5 continents: **Africa, Asia, Europe, Americas, and Oceania**
+For this exercise, we will use `continent` as a categorical variable and `pop` as quantitative variable from the  `gapminder` data set.
+
+We can see that there are 5 continents: **Africa, Asia, Europe, Americas, and Oceania**
  Africa has the most number of continents and Oceania with the fewest countries.
 ```{r}
   gapminder %>% 
@@ -179,8 +179,8 @@ gapminder %>%
 
 From this plot, we can observe the increase in Canadian life expectancy as population increases. This may be due to the increase in caretakers available for the aged population, more people pursue research that promote longevity and improved quality of life.
 
-## 3.2 
-```{r}
+## 3.2 Smooth plot
+```{r, warning = FALSE}
 gapminder %>%
   filter(country=="Canada") %>%
   ggplot(aes(lifeExp, pop)) +

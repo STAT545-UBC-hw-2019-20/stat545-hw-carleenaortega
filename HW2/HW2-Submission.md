@@ -25,7 +25,72 @@ filtered <- gapminder %>%
   filter(year > 1969, year < 1980, country == "Canada" | country == "Mexico" 
     | country == "Brazil") %>%
   arrange(country)
+knitr::kable(filtered) %>%
+  kable_styling(bootstrap_options = "striped")
 ```
+
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> country </th>
+   <th style="text-align:left;"> continent </th>
+   <th style="text-align:right;"> year </th>
+   <th style="text-align:right;"> lifeExp </th>
+   <th style="text-align:right;"> pop </th>
+   <th style="text-align:right;"> gdpPercap </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Brazil </td>
+   <td style="text-align:left;"> Americas </td>
+   <td style="text-align:right;"> 1972 </td>
+   <td style="text-align:right;"> 59.504 </td>
+   <td style="text-align:right;"> 100840058 </td>
+   <td style="text-align:right;"> 4985.711 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Brazil </td>
+   <td style="text-align:left;"> Americas </td>
+   <td style="text-align:right;"> 1977 </td>
+   <td style="text-align:right;"> 61.489 </td>
+   <td style="text-align:right;"> 114313951 </td>
+   <td style="text-align:right;"> 6660.119 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Canada </td>
+   <td style="text-align:left;"> Americas </td>
+   <td style="text-align:right;"> 1972 </td>
+   <td style="text-align:right;"> 72.880 </td>
+   <td style="text-align:right;"> 22284500 </td>
+   <td style="text-align:right;"> 18970.571 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Canada </td>
+   <td style="text-align:left;"> Americas </td>
+   <td style="text-align:right;"> 1977 </td>
+   <td style="text-align:right;"> 74.210 </td>
+   <td style="text-align:right;"> 23796400 </td>
+   <td style="text-align:right;"> 22090.883 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mexico </td>
+   <td style="text-align:left;"> Americas </td>
+   <td style="text-align:right;"> 1972 </td>
+   <td style="text-align:right;"> 62.361 </td>
+   <td style="text-align:right;"> 55984294 </td>
+   <td style="text-align:right;"> 6809.407 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mexico </td>
+   <td style="text-align:left;"> Americas </td>
+   <td style="text-align:right;"> 1977 </td>
+   <td style="text-align:right;"> 65.032 </td>
+   <td style="text-align:right;"> 63759976 </td>
+   <td style="text-align:right;"> 7674.929 </td>
+  </tr>
+</tbody>
+</table>
 
 
 ## 1.2 Pipe Operator
@@ -79,7 +144,7 @@ gapminder %>%
 ## # … with 92 more rows
 ```
 
-## 1.4 Max()
+## 1.4 Max
 
 Choose one of the following:
 
@@ -120,7 +185,7 @@ gapminder %>%
 ## # … with 132 more rows
 ```
 
-## 1.5 
+## 1.5 Scatterplot
 
 Produce a scatterplot of Canada’s life expectancy vs. GDP per capita using ggplot2, without defining a new variable. That is, after filtering the gapminder data set, pipe it directly into the ggplot() function. Ensure GDP per capita is on a log scale.
 
@@ -146,11 +211,11 @@ What are possible values (or range, whichever is appropriate) of each variable?
 What values are typical? What’s the spread? What’s the distribution? Etc., tailored to the variable at hand.
 Feel free to use summary stats, tables, figures.
 
-For this exercise, we will use `continent` as a categorical variable and `pop` as quantitative variable from the  `gapminder` data set.
-
 ## 2.1 Gapminder Continent
 
- We can see that there are 5 continents: **Africa, Asia, Europe, Americas, and Oceania**
+For this exercise, we will use `continent` as a categorical variable and `pop` as quantitative variable from the  `gapminder` data set.
+
+We can see that there are 5 continents: **Africa, Asia, Europe, Americas, and Oceania**
  Africa has the most number of continents and Oceania with the fewest countries.
 
 ```r
@@ -190,30 +255,64 @@ gapminder %>%
 
 ## 2.2 Gapminder Pop
 
-The mean population of the countries over the years are shown below:
+The mean population of the continents over the years are shown below:
 
 ```r
 gapminder %>% 
-  group_by(country) %>%
+  group_by(continent) %>%
   summarize(mean_popuplation=mean(pop))
 ```
 
 ```
-## # A tibble: 142 x 2
-##    country     mean_popuplation
-##    <fct>                  <dbl>
-##  1 Afghanistan        15823715.
-##  2 Albania             2580249.
-##  3 Algeria            19875406.
-##  4 Angola              7309390.
-##  5 Argentina          28602240.
-##  6 Australia          14649312.
-##  7 Austria             7583298.
-##  8 Bahrain              373913.
-##  9 Bangladesh         90755395.
-## 10 Belgium             9725119.
-## # … with 132 more rows
+## # A tibble: 5 x 2
+##   continent mean_popuplation
+##   <fct>                <dbl>
+## 1 Africa            9916003.
+## 2 Americas         24504795.
+## 3 Asia             77038722.
+## 4 Europe           17169765.
+## 5 Oceania           8874672.
 ```
+
+The standard error of the population per country is shown below:
+
+```r
+gapminder %>%
+  group_by(continent) %>%
+  summarize(stdE_pop = sd(pop)/sqrt(n()))
+```
+
+```
+## # A tibble: 5 x 2
+##   continent  stdE_pop
+##   <fct>         <dbl>
+## 1 Africa      620133.
+## 2 Americas   2943299.
+## 3 Asia      10396373.
+## 4 Europe     1081469.
+## 5 Oceania    1328102.
+```
+
+The ranges of population for each continent is shown below:
+
+```r
+gapminder %>%
+  group_by(continent) %>%
+  summarize(min(pop),max(pop))
+```
+
+```
+## # A tibble: 5 x 3
+##   continent `min(pop)` `max(pop)`
+##   <fct>          <int>      <int>
+## 1 Africa         60011  135031164
+## 2 Americas      662850  301139947
+## 3 Asia          120447 1318683096
+## 4 Europe        147962   82400996
+## 5 Oceania      1994794   20434176
+```
+
+This shows that Asia has the most population at 1,318,683,096 and Africa had the least at 60,011. Hence, the range of population amongst all continents is from 60,011 to 1,318,683,096
 
 # Exercise 3
   
@@ -224,7 +323,40 @@ gapminder %>%
 
 You don’t have to use all the data in every plot! It’s fine to filter down to one country or a small handful of countries.
 
+## 3.1 Scatterplot
 
+For this exercise, we will explore the relationship between the population and the life expectancy of Canada.
+
+
+```r
+gapminder %>%
+  filter(country=="Canada") %>%
+  ggplot(aes(pop, lifeExp, pop)) +
+  geom_point()+
+  labs(y="Life Expectancy", x="Population", title="The Life Expectancy of Canadians with respect to Population") +
+  theme_light()
+```
+
+![](HW2-Submission_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+
+From this plot, we can observe the increase in Canadian life expectancy as population increases. This may be due to the increase in caretakers available for the aged population, more people pursue research that promote longevity and improved quality of life.
+
+## 3.2 
+
+```r
+gapminder %>%
+  filter(country=="Canada") %>%
+  ggplot(aes(lifeExp, pop)) +
+  geom_smooth()+
+  labs(x="Life Expectancy", y="Population", title="The Life Expectancy of Canadians with respect to Population") +
+  theme_light()
+```
+
+```
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+```
+
+![](HW2-Submission_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 
 # Bonus
 
@@ -234,6 +366,20 @@ For people who want to take things further.
 
 Evaluate this code and describe the result. Presumably the analyst’s intent was to get the data for Rwanda and Afghanistan. Did they succeed? Why or why not? If not, what is the correct way to do this?
 
+filter(gapminder, country == c("Rwanda", "Afghanistan"))
+
+
+```r
+x<-filter(gapminder, country == c("Rwanda", "Afghanistan")) 
+DT::datatable(x)
+```
+
+<!--html_preserve--><div id="htmlwidget-ccee3c33065d7bb8402f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ccee3c33065d7bb8402f">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["Afghanistan","Afghanistan","Afghanistan","Afghanistan","Afghanistan","Afghanistan","Rwanda","Rwanda","Rwanda","Rwanda","Rwanda","Rwanda"],["Asia","Asia","Asia","Asia","Asia","Asia","Africa","Africa","Africa","Africa","Africa","Africa"],[1957,1967,1977,1987,1997,2007,1952,1962,1972,1982,1992,2002],[30.332,34.02,38.438,40.822,41.763,43.828,40,43,44.6,46.218,23.599,43.413],[9240934,11537966,14880372,13867957,22227415,31889923,2534927,3051242,3992121,5507565,7290203,7852401],[820.8530296,836.1971382,786.11336,852.3959448,635.341351,974.5803384,493.3238752,597.4730727,590.5806638,881.5706467,737.0685949,785.6537648]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>country<\/th>\n      <th>continent<\/th>\n      <th>year<\/th>\n      <th>lifeExp<\/th>\n      <th>pop<\/th>\n      <th>gdpPercap<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+Upon entering that code, the gapminder data for Rwanda and Afghanistan appear and the analyst can continue to work on it (e.g. via piping)
+
 ## Bonus 2
 
 Present numerical tables in a more attractive form using knitr::kable() for small tibbles (say, up to 10 rows), and DT::datatable() for larger tibbles.
+
+* Please refer to Exercise 1.1 and Bonus 1*
