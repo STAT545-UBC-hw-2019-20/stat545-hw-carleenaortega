@@ -59,7 +59,7 @@ gapminder %>%
 Choose one of the following:
 
 **Filter gapminder so that it shows the max GDP per capita experienced by each country. 
-    Hint: you might find the max() function useful here.**
+Hint: you might find the max() function useful here.**
 
 OR
 
@@ -147,7 +147,7 @@ gapminder %>%
   group_by(continent) %>%
   summarize(min(pop),max(pop))
 ```
-This shows that Asia has the most population at 1,318,683,096 and Africa had the least at 60,011.
+This shows that Asia has the most population at 1,318,683,096 and Africa had the least at 60,011, which also provide the range of the population for the entire data set.
 
 # Exercise 3
   
