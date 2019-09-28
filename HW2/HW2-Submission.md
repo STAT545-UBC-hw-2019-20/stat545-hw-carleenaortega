@@ -79,15 +79,19 @@ gapminder %>%
 ## # … with 92 more rows
 ```
 
-## 1.4  
+## 1.4 Max()
 
 Choose one of the following:
 
-    ** Filter gapminder so that it shows the max GDP per capita experienced by each country. Hint: you might find the max() function useful here. **
+**Filter gapminder so that it shows the max GDP per capita experienced by each country. 
+    Hint: you might find the max() function useful here.**
 
 OR
 
-    Filter gapminder to contain six rows: the rows with the three largest GDP per capita, and the rows with the three smallest GDP per capita. Be sure to not create any intermediate objects when doing this (with, for example, the assignment operator). Hint: you might find the sort() function useful, or perhaps even the dplyr::slice() function.
+Filter gapminder to contain six rows: the rows with the three largest GDP per capita, 
+ and the rows with the three smallest GDP per capita. Be sure to not create any 
+intermediate objects when doing this (with, for example, the assignment operator). 
+Hint: you might find the sort() function useful, or perhaps even the dplyr::slice() function.
 
 
 
@@ -127,7 +131,9 @@ gapminder %>%
   ggplot(aes(x=log(gdpPercap),lifeExp)) +
   scale_x_log10(limits=c(9,11)) +
   geom_point(colour="blue",) +
-  labs(x="log(GDP per capita)",y="Life Expectancy", title="Canada's Life Expectancy Increases with GDP per capita") +
+  labs(x="log(GDP per capita)",
+    y="Life Expectancy", 
+    title="Canada's Life Expectancy Increases with GDP per capita") +
   theme_bw()
 ```
 
@@ -136,15 +142,28 @@ gapminder %>%
 # Exercise 2
 
 Pick one categorical variable and one quantitative variable to explore. Answer the following questions in whichever way you think is appropriate, using dplyr:
+What are possible values (or range, whichever is appropriate) of each variable?
+What values are typical? What’s the spread? What’s the distribution? Etc., tailored to the variable at hand.
+Feel free to use summary stats, tables, figures.
 
 For this exercise, we will use `continent` as a categorical variable and `pop` as quantitative variable from the  `gapminder` data set.
 
+ We can see that there are 5 continents and
 
-    What are possible values (or range, whichever is appropriate) of each variable?
-    What values are typical? What’s the spread? What’s the distribution? Etc., tailored to the variable at hand.
-    Feel free to use summary stats, tables, figures.
-    
+```r
+  gapminder %>% 
+  arrange(country)%>%
+  filter(year == 1952) %>% 
+  mutate(continent = fct_infreq(continent)) %>% 
+  ggplot(aes(continent)) +
+  geom_bar(aes(colour=2,fill=2)) +
+  labs(x="Continent",
+    y="Number of Countries", 
+    title="Number of Countries per Continent") +
+  theme_bw()
+```
 
+![](HW2-Submission_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
     
 
 # Exercise 3
