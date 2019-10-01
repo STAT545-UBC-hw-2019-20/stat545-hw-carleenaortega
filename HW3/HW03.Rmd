@@ -3,8 +3,8 @@ title: 'HW03: dplyr/ggplot2 Part II'
 author: "Carleena Ortega"
 date: "29/09/2019"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -49,45 +49,51 @@ t1<-gapminder %>%
 ggplot(t1)+
   geom_point(aes(year,low_LE,group=continent,color=continent))+
   labs(x="Year",y="Number of Countries",title="The number of Countries in Each Continent with Life Expectancies 
-    Less than 60 Years")#+
-  #scale_fill_distiller(palette="Blues")
+    Less than 60 Years")
 ```
 
 ## **Task Option 2**
 Get the maximum and minimum of GDP per capita for all continents.
 ```{r}
-gapminder %>% 
+t2<-gapminder %>% 
   select(continent,gdpPercap) %>% 
   group_by(continent) %>%
   arrange(continent)%>%
-mutate(min=min(gdpPercap),max=max(gdpPercap)) #if this is chosen instead of summarize, can plot but table shows multiple entries per continent
-  summarize(min=min(gdpPercap),max=max(gdpPercap)) #if this is chosen instead of mutate, cannot plot the next. but allows a summarized table
+#mutate(min=min(gdpPercap),max=max(gdpPercap)) #if this is chosen instead of summarize, can plot but table shows multiple entries per continent
+  summarize(min_GDP=min(gdpPercap),max_GDP=max(gdpPercap)) #if this is chosen instead of mutate, cannot plot the next. but allows a summarized table
 knitr::kable(t2) %>% 
   kable_styling("striped",position="center")
 #?is it possible to add the tibble and ggplot in one string?
 ```
-
-
 ```{r}
-  gapminder %>% 
-  select(continent,gdpPercap) %>% 
-  group_by(continent) %>%
-  arrange(continent)%>%
-mutate(min=min(gdpPercap),max=max(gdpPercap)) #if this is chosen instead of summarize, can plot but table shows multiple entries per continent
-  summarize(min=min(gdpPercap),max=max(gdpPercap)) #if this is chosen instead of mutate, cannot plot the next. but allows a summarized table
-  ggplot(t2)+
-  geom_line(aes(continent,gdpPercap)) +
-  labs(x="Continents",y="GDP per capita",title="GDP per capita of Continents")+
+ggplot(t2)+
+  geom_point(aes(continent, min_GDP), color = 'red') + geom_point(aes(continent,max_GDP), color = 'green')+
+  labs(x="Continents",y="GDP per capita",title="Maximum and Minimum GDP per capita of Continents")+
   theme_get()
+#add legend for green and red
 ```
-
 
 
 ## **Task Option 3**
 Look at the spread of GDP per capita within the continents.
+```{r}
+gapminder %>% 
+  select(continent,gdpPercap) %>% 
+  group_by(continent) %>%
+  arrange(continent)
+```
 
 ```{r}
-
+gapminder %>% 
+  select(continent,gdpPercap) %>% 
+  group_by(continent) %>%
+  arrange(continent)%>%
+  ggplot()+
+  geom_boxplot(aes(continent,gdpPercap)) +
+  scale_y_log10()+
+  labs(x="Continents",y="GDP per capita",title="GDP per capita of Continents")+
+  theme_get()
+#add how to put the y range in better format
 ```
 
 
