@@ -3,8 +3,8 @@ title: 'HW03: dplyr/ggplot2 Part II'
 author: "Carleena Ortega"
 date: "29/09/2019"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -37,7 +37,7 @@ Report the absolute and/or relative abundance of countries with low life expecta
 t1<-gapminder %>% 
   select(continent,year,lifeExp) %>% 
   group_by(year,continent) %>% 
-  filter(lifeExp<50) %>%
+  filter(lifeExp<60) %>%
   group_by(year,continent) %>% 
   summarize(low_LE=length(continent))
   knitr::kable(t1) %>% 
@@ -49,10 +49,7 @@ t1<-gapminder %>%
 ggplot(t1)+
   geom_point(aes(year,low_LE,group=continent,color=continent))+
   labs(x="Year",y="Number of Countries",title="The number of Countries in Each Continent with Life Expectancies 
-    Less than 50 Years",)+
-  scale_fill_distiller(palette="Blues")
-
-
+    Less than 60 Years")
 ```
 
 ## **Task Option 2**
