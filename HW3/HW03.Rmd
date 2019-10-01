@@ -47,6 +47,7 @@ knitr::kable()
 
 
 
+<<<<<<< HEAD
 ```{r}
 gapminder %>% 
   group_by(continent) %>%
@@ -57,6 +58,8 @@ gapminder %>%
   theme_get()
 ```
 
+=======
+>>>>>>> c48c0d9adb33ae026027d9b8466ec51c137b75f8
 ## **Task Option 3**
 Look at the spread of GDP per capita within the continents.
 
