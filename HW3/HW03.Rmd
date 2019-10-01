@@ -49,7 +49,8 @@ t1<-gapminder %>%
 ggplot(t1)+
   geom_point(aes(year,low_LE,group=continent,color=continent))+
   labs(x="Year",y="Number of Countries",title="The number of Countries in Each Continent with Life Expectancies 
-    Less than 60 Years")
+    Less than 60 Years")#+
+  #scale_fill_distiller(palette="Blues")
 ```
 
 ## **Task Option 2**
