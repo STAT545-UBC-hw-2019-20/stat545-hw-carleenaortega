@@ -33,29 +33,58 @@ Or, make up your own task(s)! If you want to do something comparable but differe
 ## Task Option 1
 Report the absolute and/or relative abundance of countries with low life expectancy over time by continent: Compute some measure of worldwide life expectancy – you decide – a mean or median or some other quantile or perhaps your current age. Then determine how many countries on each continent have a life expectancy less than this benchmark, for each year.
 
+```{r}
+gapminder %>% 
+  select(country,continent,year,lifeExp) %>% 
+  group_by(continent) %>% 
+filter(lifeExp<80) %>% 
+group_by(year,continent) %>% 
+ mutate(lowLE = n(year)) #%>% 
+#knitr::kable()
+  
+```
+
+```{r}
+gapminder %>% 
+  group_by(continent) %>% 
+  filter(lifeExp<80) %>% 
+  group_by(year,continent) %>% 
+  ggplot()+
+  geom_line(aes(year,)))
+```
+
 ## **Task Option 2**
 Get the maximum and minimum of GDP per capita for all continents.
 
 ```{r}
-gapminder %>%
-  select(continent,year,gdpPercap) %>%
+gapminder %>% 
   group_by(continent) %>%
-  arrange(continent) %>%
-  mutate(min_GDP=min(gdpPercap), max_GDP=max(gdpPercap)) %>%
-knitr::kable()
+  arrange(continent)%>%
+  summarize(min_GDP=min(gdpPercap),max_GDP=max(gdpPercap)) %>% 
+knitr::kable() %>% 
+  kable_styling("striped",position="center")
+#?is it possible to add the tibble and ggplot in one string?
 ```
-
 
 
 ```{r}
 gapminder %>% 
   group_by(continent) %>%
+  arrange(continent)%>%
   mutate(min_GDP=min(gdpPercap), max_GDP=max(gdpPercap)) %>% 
+  summarize(min_GDP=first(min_GDP),max_GDP=first(max_GDP)) %>% 
   ggplot()+
-  geom_boxplot(aes(continent,gdpPercap)) +
+  geom_line(aes(continent,)) +
   labs(x="Continents",y="GDP per capita",title="GDP per capita of Continents")+
   theme_get()
 ```
+```{r}
+gapminder %>% 
+  group_by(continent) %>%
+  arrange(continent)%>%
+  summarize(min_GDP=min(gdpPercap),max_GDP=max(gdpPercap))
+```
+
 
 ## **Task Option 3**
 Look at the spread of GDP per capita within the continents.
