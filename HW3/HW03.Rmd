@@ -12,6 +12,9 @@ knitr::opts_chunk$set(echo = TRUE)
 suppressPackageStartupMessages((library(dplyr)))
 suppressPackageStartupMessages((library(ggplot2)))
 suppressPackageStartupMessages((library(gapminder)))
+suppressPackageStartupMessages(library(knitr))
+suppressPackageStartupMessages(library(kableExtra))
+knitr::opts_chunk$set(fig.align = "center")
 ```
 
 # Instructions
@@ -35,22 +38,42 @@ Get the maximum and minimum of GDP per capita for all continents.
 
 ```{r}
 gapminder %>%
+  select(continent,year,gdpPercap) %>%
   group_by(continent) %>%
- # summarize(.,continent) %>%
-  arrange(gdpPercap) %>%
-  mutate(min(gdpPercap), max(gdpPercap))
- 
+  arrange(continent) %>%
+  mutate(min_GDP=min(gdpPercap), max_GDP=max(gdpPercap)) %>%
+knitr::kable()
 ```
 
 
+
+```{r}
+gapminder %>% 
+  group_by(continent) %>%
+  mutate(min_GDP=min(gdpPercap), max_GDP=max(gdpPercap)) %>% 
+  ggplot()+
+  geom_boxplot(aes(continent,gdpPercap)) +
+  labs(x="Continents",y="GDP per capita",title="GDP per capita of Continents")+
+  theme_get()
+```
+
 ## **Task Option 3**
 Look at the spread of GDP per capita within the continents.
+
+```{r}
+
+```
+
 
 ## Task Option 4
 Compute a trimmed mean of life expectancy for different years. Or a weighted mean, weighting by population. Just try something other than the plain vanilla mean.
 
 ## **Task Option 5**
 How is life expectancy changing over time on different continents?
+
+```{r}
+
+```
 
 ## Task Option 6
 Find countries with interesting stories. Open-ended and, therefore, hard. Promising but unsuccessful attempts are encouraged. This will generate interesting questions to follow up on in class.
