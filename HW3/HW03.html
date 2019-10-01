@@ -972,22 +972,119 @@ Oceania
 <pre class="r"><code>gapminder %&gt;% 
   select(continent,gdpPercap) %&gt;% 
   group_by(continent) %&gt;%
-  arrange(continent)</code></pre>
-<pre><code>## # A tibble: 1,704 x 2
-## # Groups:   continent [5]
-##    continent gdpPercap
-##    &lt;fct&gt;         &lt;dbl&gt;
-##  1 Africa        2449.
-##  2 Africa        3014.
-##  3 Africa        2551.
-##  4 Africa        3247.
-##  5 Africa        4183.
-##  6 Africa        4910.
-##  7 Africa        5745.
-##  8 Africa        5681.
-##  9 Africa        5023.
-## 10 Africa        4797.
-## # … with 1,694 more rows</code></pre>
+  arrange(continent) %&gt;%
+  summarize(mean=mean(gdpPercap),median=median(gdpPercap),min=min(gdpPercap),max=max(gdpPercap)) %&gt;% 
+knitr::kable() %&gt;% 
+  kable_styling(&quot;striped&quot;,position=&quot;center&quot;)</code></pre>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+continent
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+median
+</th>
+<th style="text-align:right;">
+min
+</th>
+<th style="text-align:right;">
+max
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Africa
+</td>
+<td style="text-align:right;">
+2193.755
+</td>
+<td style="text-align:right;">
+1192.138
+</td>
+<td style="text-align:right;">
+241.1659
+</td>
+<td style="text-align:right;">
+21951.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Americas
+</td>
+<td style="text-align:right;">
+7136.110
+</td>
+<td style="text-align:right;">
+5465.510
+</td>
+<td style="text-align:right;">
+1201.6372
+</td>
+<td style="text-align:right;">
+42951.65
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Asia
+</td>
+<td style="text-align:right;">
+7902.150
+</td>
+<td style="text-align:right;">
+2646.787
+</td>
+<td style="text-align:right;">
+331.0000
+</td>
+<td style="text-align:right;">
+113523.13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Europe
+</td>
+<td style="text-align:right;">
+14469.476
+</td>
+<td style="text-align:right;">
+12081.749
+</td>
+<td style="text-align:right;">
+973.5332
+</td>
+<td style="text-align:right;">
+49357.19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Oceania
+</td>
+<td style="text-align:right;">
+18621.609
+</td>
+<td style="text-align:right;">
+17983.304
+</td>
+<td style="text-align:right;">
+10039.5956
+</td>
+<td style="text-align:right;">
+34435.37
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>#mean, median, and range, summarize fnc</code></pre>
 <pre class="r"><code>gapminder %&gt;% 
   select(continent,gdpPercap) %&gt;% 
   group_by(continent) %&gt;%

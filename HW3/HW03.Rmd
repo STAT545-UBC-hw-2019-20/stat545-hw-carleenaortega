@@ -80,7 +80,11 @@ Look at the spread of GDP per capita within the continents.
 gapminder %>% 
   select(continent,gdpPercap) %>% 
   group_by(continent) %>%
-  arrange(continent)
+  arrange(continent) %>%
+  summarize(mean=mean(gdpPercap),median=median(gdpPercap),min=min(gdpPercap),max=max(gdpPercap)) %>% 
+knitr::kable() %>% 
+  kable_styling("striped",position="center")
+#mean, median, and range, summarize fnc
 ```
 
 ```{r}
