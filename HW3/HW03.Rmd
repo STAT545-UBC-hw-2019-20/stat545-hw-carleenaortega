@@ -18,6 +18,7 @@ suppressPackageStartupMessages((library(ggplot2)))
 suppressPackageStartupMessages((library(gapminder)))
 suppressPackageStartupMessages(library(knitr))
 suppressPackageStartupMessages(library(kableExtra))
+suppressPackageStartupMessages(library(scales))
 knitr::opts_chunk$set(fig.align = "center")
 ```
 
@@ -47,7 +48,7 @@ t1<-gapminder %>%
   group_by(year,continent) %>% 
   summarize(low_LE=length(continent))
   knitr::kable(t1) %>% 
-    kable_styling("basic",position="center")
+    kable_styling("striped",position="center")
   DT::datatable(t1)
 ```
 This table identifies the number of countries that have life expectancies less than 60 years for each continent in every year recorded.
@@ -79,7 +80,7 @@ knitr::kable(t2) %>%
 ```{r}
 ggplot(t2)+
   geom_point(aes(continent, min_GDP,color="min"),size=5, shape="square") + geom_point(aes(continent,max_GDP,colour="max"),size=5,shape="square",alpha=0.6)+
-  geom_linerange(aes(x=continent,ymin=min_GDP,ymax=max_GDP),width=3,size=1,colour="dark gray",alpha=0.5)+
+  geom_linerange(aes(x=continent,ymin=min_GDP,ymax=max_GDP),size=1,colour="dark gray",alpha=0.5)+
   labs(x="Continents",y="GDP per capita",title="Maximum and Minimum GDP per capita of Continents") + theme(legend.position="right")+ 
   theme_bw()
 ```
@@ -105,11 +106,11 @@ gapminder %>%
   arrange(continent)%>%
   ggplot()+
   geom_boxplot(aes(continent,gdpPercap)) +
-  scale_y_log10()+
+  scale_y_log10(labels=comma)+ 
   labs(x="Continents",y="GDP per capita",title="GDP per capita of Continents")+
-  theme_get()
+  theme_bw()
 ```
-This is a boxplot of the GDP per capita of the various continents. The 
+This is a boxplot of the GDP per capita of the various continents showing the minimum(lowest point of the vertical line), the maximum(highest point of the vertical line), and the median(horizontal line within the box) values for each continent's GDP per capita.
 
 ## Task Option 4
 Compute a trimmed mean of life expectancy for different years. Or a weighted mean, weighting by population. Just try something other than the plain vanilla mean.
