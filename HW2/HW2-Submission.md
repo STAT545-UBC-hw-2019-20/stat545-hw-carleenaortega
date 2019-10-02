@@ -25,10 +25,18 @@ filtered <- gapminder %>%
   filter(year > 1969, year < 1980, country == "Canada" | country == "Mexico" 
     | country == "Brazil") %>%
   arrange(country)
+<<<<<<< HEAD
 knitr::kable(filtered)
 ```
 
 <table>
+=======
+knitr::kable(filtered) %>%
+  kable_styling(bootstrap_options = "striped")
+```
+
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+>>>>>>> 1ca241f8288cec53a6f6659df35e11a33da8fe2c
  <thead>
   <tr>
    <th style="text-align:left;"> country </th>
@@ -332,8 +340,12 @@ gapminder %>%
   filter(country=="Canada") %>%
   ggplot(aes(pop, lifeExp, pop)) +
   geom_point()+
+<<<<<<< HEAD
   labs(y="Life Expectancy", x="Population", title="The Life Expectancy of 
     Canadians with respect to Population") +
+=======
+  labs(y="Life Expectancy", x="Population", title="The Life Expectancy of Canadians with respect to Population") +
+>>>>>>> 1ca241f8288cec53a6f6659df35e11a33da8fe2c
   theme_light()
 ```
 
@@ -348,8 +360,12 @@ gapminder %>%
   filter(country=="Canada") %>%
   ggplot(aes(lifeExp, pop)) +
   geom_smooth()+
+<<<<<<< HEAD
   labs(x="Life Expectancy", y="Population", title="The Life Expectancy of 
     Canadians with respect to Population") +
+=======
+  labs(x="Life Expectancy", y="Population", title="The Life Expectancy of Canadians with respect to Population") +
+>>>>>>> 1ca241f8288cec53a6f6659df35e11a33da8fe2c
   theme_light()
 ```
 
@@ -372,10 +388,18 @@ filter(gapminder, country == c("Rwanda", "Afghanistan"))
 
 ```r
 x<-filter(gapminder, country == c("Rwanda", "Afghanistan")) 
+<<<<<<< HEAD
 knitr::kable(x)
 ```
 
 <table>
+=======
+knitr::kable(x) %>%
+  kable_styling("hover",full_width = T)
+```
+
+<table class="table table-hover" style="margin-left: auto; margin-right: auto;">
+>>>>>>> 1ca241f8288cec53a6f6659df35e11a33da8fe2c
  <thead>
   <tr>
    <th style="text-align:left;"> country </th>
@@ -491,4 +515,8 @@ Upon entering that code, the gapminder data for Rwanda and Afghanistan appear an
 
 Present numerical tables in a more attractive form using knitr::kable() for small tibbles (say, up to 10 rows), and DT::datatable() for larger tibbles.
 
+<<<<<<< HEAD
 *Please refer to Exercise 1.1 and Bonus 1*
+=======
+* Please refer to Exercise 1.1 and Bonus 1*
+>>>>>>> 1ca241f8288cec53a6f6659df35e11a33da8fe2c

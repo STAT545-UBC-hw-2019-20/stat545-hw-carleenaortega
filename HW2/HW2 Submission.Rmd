@@ -171,8 +171,12 @@ gapminder %>%
   filter(country=="Canada") %>%
   ggplot(aes(pop, lifeExp, pop)) +
   geom_point()+
+<<<<<<< HEAD
   labs(y="Life Expectancy", x="Population", title="The Life Expectancy of 
     Canadians with respect to Population") +
+=======
+  labs(y="Life Expectancy", x="Population", title="The Life Expectancy of Canadians with respect to Population") +
+>>>>>>> 1ca241f8288cec53a6f6659df35e11a33da8fe2c
   theme_light()
 
 ```
@@ -185,8 +189,12 @@ gapminder %>%
   filter(country=="Canada") %>%
   ggplot(aes(lifeExp, pop)) +
   geom_smooth()+
+<<<<<<< HEAD
   labs(x="Life Expectancy", y="Population", title="The Life Expectancy of 
     Canadians with respect to Population") +
+=======
+  labs(x="Life Expectancy", y="Population", title="The Life Expectancy of Canadians with respect to Population") +
+>>>>>>> 1ca241f8288cec53a6f6659df35e11a33da8fe2c
   theme_light()
 
 ```
