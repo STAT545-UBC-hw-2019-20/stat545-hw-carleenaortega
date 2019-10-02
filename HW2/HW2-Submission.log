@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.26)  27 SEP 2019 23:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.26)  2 OCT 2019 16:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -975,10 +975,10 @@ Package xcolor Warning: Incompatible color definition on input line 425.
 Package xcolor Warning: Incompatible color definition on input line 464.
 
 
-Package xcolor Warning: Incompatible color definition on input line 473.
+Package xcolor Warning: Incompatible color definition on input line 474.
 
 
-Package xcolor Warning: Incompatible color definition on input line 473.
+Package xcolor Warning: Incompatible color definition on input line 474.
 
 <HW2-Submission_files/figure-latex/unnamed-chunk-11-1.pdf, id=118, 463.7325pt x
  315.1775pt>
@@ -986,17 +986,17 @@ File: HW2-Submission_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (ty
 pe pdf)
 <use HW2-Submission_files/figure-latex/unnamed-chunk-11-1.pdf>
 Package pdftex.def Info: HW2-Submission_files/figure-latex/unnamed-chunk-11-1.p
-df  used on input line 475.
+df  used on input line 476.
 (pdftex.def)             Requested size: 463.73842pt x 315.18153pt.
 [6]
 
-Package xcolor Warning: Incompatible color definition on input line 485.
+Package xcolor Warning: Incompatible color definition on input line 486.
 
 
-Package xcolor Warning: Incompatible color definition on input line 494.
+Package xcolor Warning: Incompatible color definition on input line 496.
 
 
-Package xcolor Warning: Incompatible color definition on input line 494.
+Package xcolor Warning: Incompatible color definition on input line 496.
 
 <HW2-Submission_files/figure-latex/unnamed-chunk-12-1.pdf, id=125, 459.7175pt x
  316.18124pt>
@@ -1004,28 +1004,28 @@ File: HW2-Submission_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (ty
 pe pdf)
 <use HW2-Submission_files/figure-latex/unnamed-chunk-12-1.pdf>
 Package pdftex.def Info: HW2-Submission_files/figure-latex/unnamed-chunk-12-1.p
-df  used on input line 500.
+df  used on input line 502.
 (pdftex.def)             Requested size: 459.74442pt x 316.19975pt.
 [7 <./HW2-Submission_files/figure-latex/unnamed-chunk-11-1.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 516.
+Package xcolor Warning: Incompatible color definition on input line 518.
 
 
-Package xcolor Warning: Incompatible color definition on input line 521.
+Package xcolor Warning: Incompatible color definition on input line 523.
 
 
-Package xcolor Warning: Incompatible color definition on input line 521.
+Package xcolor Warning: Incompatible color definition on input line 523.
 
 [8 <./HW2-Submission_files/figure-latex/unnamed-chunk-12-1.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 566.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 568.
 [9]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 566.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 568.
 (./HW2-Submission.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 566.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 566.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 568.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 568.
 Package rerunfilecheck Info: File `HW2-Submission.out' has not changed.
 (rerunfilecheck)             Checksum: 888A85A5DAA916B4FB9A53FC5C97ED00;1824.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 566.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 568.
  ) 
 Here is how much of TeX's memory you used:
  12629 strings out of 494553
@@ -1046,7 +1046,7 @@ public/lm/lmri10.pfb></Users/carleenaortega/Library/TinyTeX/texmf-dist/fonts/ty
 pe1/public/lm/lmri12.pfb></Users/carleenaortega/Library/TinyTeX/texmf-dist/font
 s/type1/public/lm/lmtk10.pfb></Users/carleenaortega/Library/TinyTeX/texmf-dist/
 fonts/type1/public/lm/lmtt10.pfb>
-Output written on HW2-Submission.pdf (9 pages, 232234 bytes).
+Output written on HW2-Submission.pdf (9 pages, 232302 bytes).
 PDF statistics:
  204 PDF objects out of 1000 (max. 8388607)
  171 compressed objects within 2 object streams
