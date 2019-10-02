@@ -3,11 +3,11 @@ title: 'HW2: Explore Gapminder and use dplyr'
 author: "Carleena Ortega"
 date: "27/09/2019"
 output:
+  pdf_document:
   html_document:
     keep_md: yes
     theme: cerulean
     toc: yes
-  pdf_document:
   word_document:
     toc: yes
   always_allow_html: yes
