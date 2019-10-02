@@ -1,10 +1,14 @@
 ---
 title: 'HW03: dplyr/ggplot2 Part II'
 author: "Carleena Ortega"
-date: "29/09/2019"
+date: "October 1 2019"
 output:
-  pdf_document: default
-  html_document: default
+  html_document:
+    keep_md: yes
+    theme: cerulean
+    toc: yes
+  pdf_document:
+  always_allow_html: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -28,10 +32,12 @@ Pick three of the six tasks below, and produce:
 Or, make up your own task(s)! If you want to do something comparable but different, i.e. swap one quantitative variable for another, be my guest! If you are feeling inspired and curious, then we’re doing this right. Go for it. Just write down the task that you are now doing. Between the dplyr coverage in class and the list below, I think you get the idea.
 
 
+
 # Tasks
 
-## Task Option 1
+## **Task Option 1**
 Report the absolute and/or relative abundance of countries with low life expectancy over time by continent: Compute some measure of worldwide life expectancy – you decide – a mean or median or some other quantile or perhaps your current age. Then determine how many countries on each continent have a life expectancy less than this benchmark, for each year.
+
 
 ```{r}
 t1<-gapminder %>% 
@@ -41,16 +47,20 @@ t1<-gapminder %>%
   group_by(year,continent) %>% 
   summarize(low_LE=length(continent))
   knitr::kable(t1) %>% 
-    kable_styling("basic")
-  
+    kable_styling("basic",position="center")
+  DT::datatable(t1)
 ```
+This table identifies the number of countries that have life expectancies less than 60 years for each continent in every year recorded.
 
+We can also present this data graphically as follows:
 ```{r}
 ggplot(t1)+
-  geom_point(aes(year,low_LE,group=continent,color=continent))+
+  geom_point(aes(year,low_LE,group=continent,color=continent))+ geom_path((aes(year,low_LE,group=continent,color=continent)))+
   labs(x="Year",y="Number of Countries",title="The number of Countries in Each Continent with Life Expectancies 
-    Less than 60 Years")
+    Less than 60 Years")+
+  theme_light()
 ```
+We can observe that the trends amongst the continents follow a similar path where the number of countries with life expectancies less than 60 decline throughout the years. Africa had a plateau from 1950 to late 1970's that declined sharply between late 1970 to late 1980 and then plateaud again until the late 2000's. Asia and Americas had a slow decline in the 1950's to the late 1960's then have a sharp decline from then on until it declines less rapidly from late 1980's to late 2000's. Europe had a sharp decline from 1950 to 1960 and experienced a plateau. We can attribute the decrease in the number of countries with life expectancies less than 60 as technology, sanitation, regulations, and healthcare improved througout the years.
 
 ## **Task Option 2**
 Get the maximum and minimum of GDP per capita for all continents.
@@ -59,20 +69,21 @@ t2<-gapminder %>%
   select(continent,gdpPercap) %>% 
   group_by(continent) %>%
   arrange(continent)%>%
-#mutate(min=min(gdpPercap),max=max(gdpPercap)) #if this is chosen instead of summarize, can plot but table shows multiple entries per continent
-  summarize(min_GDP=min(gdpPercap),max_GDP=max(gdpPercap)) #if this is chosen instead of mutate, cannot plot the next. but allows a summarized table
+  summarize(min_GDP=min(gdpPercap),max_GDP=max(gdpPercap))
 knitr::kable(t2) %>% 
   kable_styling("striped",position="center")
-#?is it possible to add the tibble and ggplot in one string?
-```
-```{r}
-ggplot(t2)+
-  geom_point(aes(continent, min_GDP), color = 'red') + geom_point(aes(continent,max_GDP), color = 'green')+
-  labs(x="Continents",y="GDP per capita",title="Maximum and Minimum GDP per capita of Continents")+
-  theme_get()
-#add legend for green and red
 ```
 
+
+
+```{r}
+ggplot(t2)+
+  geom_point(aes(continent, min_GDP,color="min"),size=5, shape="square") + geom_point(aes(continent,max_GDP,colour="max"),size=5,shape="square",alpha=0.6)+
+  geom_linerange(aes(x=continent,ymin=min_GDP,ymax=max_GDP),width=3,size=1,colour="dark gray",alpha=0.5)+
+  labs(x="Continents",y="GDP per capita",title="Maximum and Minimum GDP per capita of Continents") + theme(legend.position="right")+ 
+  theme_bw()
+```
+We can observe the minimum (pink box) and maximum (blue box) GDP per capita of each continent (connected by a gray line). Asia has the highest max GDP per capita while Africa has the lowest minimum GDP per capita.
 
 ## **Task Option 3**
 Look at the spread of GDP per capita within the continents.
@@ -80,12 +91,12 @@ Look at the spread of GDP per capita within the continents.
 gapminder %>% 
   select(continent,gdpPercap) %>% 
   group_by(continent) %>%
-  arrange(continent) %>%
-  summarize(mean=mean(gdpPercap),median=median(gdpPercap),min=min(gdpPercap),max=max(gdpPercap)) %>% 
+  summarize(mean=mean(gdpPercap),std_dev=sd(gdpPercap),median=median(gdpPercap),min=min(gdpPercap),max=max(gdpPercap)) %>% 
+   arrange(mean) %>%
 knitr::kable() %>% 
   kable_styling("striped",position="center")
-#mean, median, and range, summarize fnc
 ```
+This table provides a summary of the dataset. It lists the continents in increasing mean GDP per capita and also provides the standard deviation (std_dev), median, minimum, and maximum GDP per capita of each continent throughout the data collection.
 
 ```{r}
 gapminder %>% 
@@ -97,9 +108,8 @@ gapminder %>%
   scale_y_log10()+
   labs(x="Continents",y="GDP per capita",title="GDP per capita of Continents")+
   theme_get()
-#add how to put the y range in better format
 ```
-
+This is a boxplot of the GDP per capita of the various continents. The 
 
 ## Task Option 4
 Compute a trimmed mean of life expectancy for different years. Or a weighted mean, weighting by population. Just try something other than the plain vanilla mean.
