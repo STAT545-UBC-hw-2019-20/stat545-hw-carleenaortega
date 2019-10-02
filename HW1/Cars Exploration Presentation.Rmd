@@ -4,13 +4,10 @@ author: "Carleena Ortega"
 date: "27/09/2019"
 output:
   beamer_presentation: default
-<<<<<<< HEAD
   slidy_presentation: default
   ioslides_presentation: default
-=======
   ioslides_presentation: default
   toc: yes
->>>>>>> 2286eba279473b5ff1d17a81b6731aea0935c404
 ---
 
 ```{r setup, include=FALSE}
