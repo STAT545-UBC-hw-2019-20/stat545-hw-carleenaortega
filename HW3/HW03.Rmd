@@ -3,11 +3,11 @@ title: 'HW03: dplyr/ggplot2 Part II'
 author: "Carleena Ortega"
 date: "October 1 2019"
 output:
+  pdf_document:
   html_document:
     keep_md: yes
     theme: cerulean
     toc: yes
-  pdf_document:
   always_allow_html: yes
 ---
 
@@ -46,18 +46,19 @@ t1<-gapminder %>%
   group_by(year,continent) %>% 
   filter(lifeExp<60) %>%
   group_by(year,continent) %>% 
-  summarize(low_LE=length(continent))
+  summarize(low_LifeExp=length(continent))
   knitr::kable(t1) %>% 
-    kable_styling("striped",position="center")
-  DT::datatable(t1)
+    kable_styling("striped",latex_options="basic",full_width=FALSE,position="center")
 ```
-This table identifies the number of countries that have life expectancies less than 60 years for each continent in every year recorded.
+This table enumerates the number of countries that have life expectancies less than 60 years for each continent in every year recorded.
 
 We can also present this data graphically as follows:
 ```{r}
 ggplot(t1)+
-  geom_point(aes(year,low_LE,group=continent,color=continent))+ geom_path((aes(year,low_LE,group=continent,color=continent)))+
-  labs(x="Year",y="Number of Countries",title="The number of Countries in Each Continent with Life Expectancies 
+  geom_point(aes(year,low_LifeExp,group=continent,color=continent))+
+  geom_path((aes(year,low_LifeExp,group=continent,color=continent)))+
+  labs(x="Year",y="Number of Countries",
+  title="The number of Countries in Each Continent with Life Expectancies 
     Less than 60 Years")+
   theme_light()
 ```
@@ -72,16 +73,21 @@ t2<-gapminder %>%
   arrange(continent)%>%
   summarize(min_GDP=min(gdpPercap),max_GDP=max(gdpPercap))
 knitr::kable(t2) %>% 
-  kable_styling("striped",position="center")
+  kable_styling("striped",latex_options="basic",full_width=FALSE,position="center")
 ```
 
 
 
 ```{r}
 ggplot(t2)+
-  geom_point(aes(continent, min_GDP,color="min"),size=5, shape="square") + geom_point(aes(continent,max_GDP,colour="max"),size=5,shape="square",alpha=0.6)+
-  geom_linerange(aes(x=continent,ymin=min_GDP,ymax=max_GDP),size=1,colour="dark gray",alpha=0.5)+
-  labs(x="Continents",y="GDP per capita",title="Maximum and Minimum GDP per capita of Continents") + theme(legend.position="right")+ 
+  geom_point(aes(continent, min_GDP,color="min"),
+    size=5, shape="square") + geom_point(aes(continent,max_GDP,colour="max"),
+    size=5,shape="square",alpha=0.6)+
+  geom_linerange(aes(x=continent,ymin=min_GDP,ymax=max_GDP),
+    size=1,colour="dark gray",alpha=0.5)+
+  labs(x="Continents",y="GDP per capita",
+    title="Maximum and Minimum GDP per capita of Continents") +
+  theme(legend.position="right")+ 
   theme_bw()
 ```
 We can observe the minimum (pink box) and maximum (blue box) GDP per capita of each continent (connected by a gray line). Asia has the highest max GDP per capita while Africa has the lowest minimum GDP per capita.
@@ -92,10 +98,11 @@ Look at the spread of GDP per capita within the continents.
 gapminder %>% 
   select(continent,gdpPercap) %>% 
   group_by(continent) %>%
-  summarize(mean=mean(gdpPercap),std_dev=sd(gdpPercap),median=median(gdpPercap),min=min(gdpPercap),max=max(gdpPercap)) %>% 
+  summarize(mean=mean(gdpPercap),std_dev=sd(gdpPercap),
+    median=median(gdpPercap),min=min(gdpPercap),max=max(gdpPercap)) %>% 
    arrange(mean) %>%
 knitr::kable() %>% 
-  kable_styling("striped",position="center")
+  kable_styling("striped",latex_options="basic",full_width=FALSE,position="center")
 ```
 This table provides a summary of the dataset. It lists the continents in increasing mean GDP per capita and also provides the standard deviation (std_dev), median, minimum, and maximum GDP per capita of each continent throughout the data collection.
 
@@ -107,18 +114,19 @@ gapminder %>%
   ggplot()+
   geom_boxplot(aes(continent,gdpPercap)) +
   scale_y_log10(labels=comma)+ 
-  labs(x="Continents",y="GDP per capita",title="GDP per capita of Continents")+
+  labs(x="Continents",y="GDP per capita",
+    title="GDP per capita of Continents")+
   theme_bw()
 ```
 This is a boxplot of the GDP per capita of the various continents showing the minimum(lowest point of the vertical line), the maximum(highest point of the vertical line), and the median(horizontal line within the box) values for each continent's GDP per capita.
 
-## Task Option 4
+## ~~Task Option 4~~
 Compute a trimmed mean of life expectancy for different years. Or a weighted mean, weighting by population. Just try something other than the plain vanilla mean.
 
-## Task Option 5
+## ~~Task Option 5~~
 How is life expectancy changing over time on different continents?
 
 
-## Task Option 6
+## ~~Task Option 6~~
 Find countries with interesting stories. Open-ended and, therefore, hard. Promising but unsuccessful attempts are encouraged. This will generate interesting questions to follow up on in class.
 
