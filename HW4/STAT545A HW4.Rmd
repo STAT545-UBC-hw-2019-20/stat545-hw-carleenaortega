@@ -6,5 +6,63 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
+suppressPackageStartupMessages(library(tidyr))
+suppressPackageStartupMessages(library(ggplot2))
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+# Exercise 1: Univariate Data Reshaping
+Choose *EITHER* “Univariate Option 1” or “Univariate Option 2”. 
+Both of these problems have three components:
+
+1. Putting data in wider format
+2. Producing a plot of the wide data
+3. Re-lengthening the wider data
+
+### Univariate Option 1
+1. Make a tibble with one row per year, and columns for life expectancy for two or more countries.
+2. Take advantage of this new data shape to scatterplot life expectancy for one country against that of another.
+3. Re-lengthen the data.
+
+### Univariate Option 2
+1. Compute some measure of life expectancy (mean? median? min? max?) for all possible combinations of continent and year. Reshape that to have one row per year and one variable for each continent. Or the other way around: one row per continent and one variable per year.
+2. Is there a plot that is easier to make with the data in this shape versis the usual form? Try making such a plot!
+3. Re-lengthen the data.
+
+# Exercise 2: Multivariate Data Reshaping
+Choose *EITHER* “Multivariate Option 1” or “Multivariate Option 2”. All of these problems have two components:
+
+1. Putting data in wider format
+2. Re-lengthening the data
+
+### Multivariate Option 1
+1. Make a tibble with one row per year, and columns for life expectancy and GDP per capita (or two other numeric variables) for two or more countries.
+2. Re-lengthen the data.
+
+### Multivariate Option 2
+1. Compute some measure of life expectancy and GDP per capita (or two other numeric variables) (mean? median? min? max?) for all possible combinations of continent and year. Reshape that to have one row per year and one variable for each continent-measurement combination. Or the other way around: one row per continent and one variable for each year-measurement combination. 
+2.Re-lengthen the data.
+
+# Exercise 3: Table Joins
+Do *ALL* of the activities in this section.
+
+Read in the made-up wedding guestlist and email addresses using the following lines (go ahead and copy-paste these):
+
+guest <- [read_csv link]("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/attend.csv")
+
+email <- [read_csv link]("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/emails.csv")
+
+Then, complete the following tasks using the tidyverse (tidyr, dplyr, …). No need to do any pivoting – feel free to leave guest in its current format.
+
+### 3.1 Add emails
+For each guest in the guestlist (guest tibble), add a column for email address, which can be found in the email tibble.
+
+### 3.2 Filter emails
+Who do we have emails for, yet are not on the guestlist?
+
+### 3.3 Make a guestlist
+Make a guestlist that includes everyone we have emails for (in addition to those on the original guestlist).
+
+
+
+
