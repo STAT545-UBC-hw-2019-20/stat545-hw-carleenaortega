@@ -2,10 +2,12 @@
 title: 'HW04: Tidy data and joins'
 author: "Carleena Ortega"
 date: "02/10/2019"
-output: 
-  html_document:
+output:
+  pdf_document:
     toc: yes
+  html_document:
     theme: yeti
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -79,7 +81,7 @@ t1_wide %>%
                names_to  = "Continent", 
                values_to = "Mean Life Expectancy") %>% 
   knitr::kable() %>% 
-    kable_styling("striped",latex_options="basic",
+    kable_styling("striped",latex_options="basic",font_size=8,
       full_width=FALSE, position="center")
 
 ```
@@ -128,20 +130,39 @@ Do *ALL* of the activities in this section.
 
 Read in the made-up wedding guestlist and email addresses using the following lines (go ahead and copy-paste these):
 
-guest <- [read_csv link]("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/attend.csv")
+```{r}
+guest <- read.csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/attend.csv")
 
-email <- [read_csv link]("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/emails.csv")
+email <-read.csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/emails.csv")
+```
+
 
 Then, complete the following tasks using the tidyverse (tidyr, dplyr, …). No need to do any pivoting – feel free to leave guest in its current format.
 
 ### 3.1 Add emails
 For each guest in the guestlist (guest tibble), add a column for email address, which can be found in the email tibble.
 
+```{r}
+tibble::as_tibble(guest) %>% 
+
+
+knitr::kable() %>% 
+kable_styling("striped", latex_options = "scale_down",full_width = FALSE)
+```
+
 ### 3.2 Filter emails
 Who do we have emails for, yet are not on the guestlist?
 
+```{r}
+
+```
+
 ### 3.3 Make a guestlist
 Make a guestlist that includes everyone we have emails for (in addition to those on the original guestlist).
+
+```{r}
+
+```
 
 
 
