@@ -2,7 +2,10 @@
 title: 'HW04: Tidy data and joins'
 author: "Carleena Ortega"
 date: "02/10/2019"
-output: html_document
+output: 
+  html_document:
+    toc: yes
+    theme: yeti
 ---
 
 ```{r setup, include=FALSE}
@@ -12,6 +15,7 @@ suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(gapminder))
 suppressPackageStartupMessages(library(knitr))
 suppressPackageStartupMessages(library(kableExtra))
+suppressPackageStartupMessages(library(scales))
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -39,47 +43,44 @@ t1<-gapminder %>%
   
 t1_wide<-pivot_wider(t1,names_from="continent", values_from="mean_LE")
 knitr::kable(t1_wide) %>% 
-  kable_styling("striped",latex_options="basic",full_width=FALSE,position="center")
+  kable_styling("striped",latex_options="basic",
+    full_width=FALSE,position="center")
 ```
 
 2. Is there a plot that is easier to make with the data in this shape versis the usual form? Try making such a plot!
 
-
-
-
-
+```{r}
+ggplot(t1_wide) +
+  geom_jitter(aes(year,"Africa",color="Africa"))+
+  geom_jitter(aes(year,"Americas", color="Americas"))+
+  geom_jitter(aes(year,"Asia",color="Asia"))+
+  geom_jitter(aes(year,"Europe",color="Europe"))+
+  geom_jitter(aes(year,"Oceania",color="Oceania"))+
+  labs(x="Year",y="Mean Life Expectancy of Each Continent",
+  title="Growth of the Mean Life Expectancy of Each Continent (Reshaped)")+
+  theme_light()
+```
 
 ```{r}
 ggplot(t1) +
   geom_point(aes(year,mean_LE,color=continent))+
   geom_line(aes(year,mean_LE,color=continent))+
   labs(x="Year",y="Mean Life Expectancy of Each Continent",
-  title="Growth of the Mean Life Expectancy of Each Continent")+
+  title="Growth of the Mean Life Expectancy of Each Continent (Original)")+
   theme_light()
 ```
   
-```{r}
-ggplot(t1_wide) +
-  geom_point(aes(year,"Africa",color="Africa"))+
-  geom_jitter(aes(year,"Americas"))+
-  geom_jitter(aes(year,"Asia"))+
-  geom_jitter(aes(year,"Europe"))+
-  geom_jitter(aes(year,"Oceania"))+
-  labs(x="Year",y="Mean Life Expectancy of Each Continent",
-  title="Growth of the Mean Life Expectancy of Each Continent")+
-  theme_light()
-```
-
-#```{r}
-ggplot(t1_wide) +
-  geom_line(aes(year,n,group=n,color=n, alpha=0.3))+
-  labs(x="Year",y="Mean Life Expectancy of Each Continent",
-  title="Growth of the Mean Life Expectancy of Each Continent")+
-  theme_light()
-```
+The x axis in the reshaped data is the continents and it was difficult to add scales and label the axis properly. Coding for the plots is much easier for the original data , it is more visually appealing, and the trends are more apparent. Hence, comparing the original and the reshaped plots suggests that plotting the original data is simpler, neater and more understandable. 
 
 3. Re-lengthen the data.
 ```{r}
+t1_wide %>% 
+  pivot_longer(cols = c(-year), 
+               names_to  = "Continent", 
+               values_to = "Mean Life Expectancy") %>% 
+  knitr::kable() %>% 
+    kable_styling("striped",latex_options="basic",
+      full_width=FALSE, position="center")
 
 ```
 
@@ -90,11 +91,35 @@ Choose *EITHER* “Multivariate Option 1” or “Multivariate Option 2”. All 
 1. Putting data in wider format
 2. Re-lengthening the data
 
-### Multivariate Option 1
+### **Multivariate Option 1**
 1. Make a tibble with one row per year, and columns for life expectancy and GDP per capita (or two other numeric variables) for two or more countries.
+
+```{r}
+t2<-gapminder %>% 
+    select(year,country,lifeExp,gdpPercap) %>% 
+    filter(country=="Canada"|country=="Japan") %>% 
+    group_by(year) %>% 
+  pivot_wider(names_from="country",names_sep="_",
+     values_from=c("lifeExp","gdpPercap"))
+
+  knitr::kable(t2) %>% 
+  kable_styling("striped",latex_options = "basic",
+    full_width = FALSE,position="center")
+```
+
 2. Re-lengthen the data.
 
-### Multivariate Option 2
+```{r}
+t2_longer<-t2 %>% 
+pivot_longer(cols=c(-year),names_to=c("Variable","Country"),names_sep="_")
+
+knitr::kable(t2_longer) %>% 
+  kable_styling("striped",latex_options = "basic",
+    full_width = FALSE,position="center")
+```
+
+
+### ~~Multivariate Option 2~~
 1. Compute some measure of life expectancy and GDP per capita (or two other numeric variables) (mean? median? min? max?) for all possible combinations of continent and year. Reshape that to have one row per year and one variable for each continent-measurement combination. Or the other way around: one row per continent and one variable for each year-measurement combination. 
 2.Re-lengthen the data.
 
