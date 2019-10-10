@@ -3,10 +3,10 @@ title: 'HW04: Tidy data and joins'
 author: "Carleena Ortega"
 date: "02/10/2019"
 output:
-  pdf_document:
-    toc: yes
   html_document:
     theme: yeti
+    toc: yes
+  pdf_document:
     toc: yes
 ---
 
@@ -142,11 +142,12 @@ Then, complete the following tasks using the tidyverse (tidyr, dplyr, …). No n
 ### 3.1 Add emails
 For each guest in the guestlist (guest tibble), add a column for email address, which can be found in the email tibble.
 
-```{r}
-tibble::as_tibble(guest) %>% 
+```{r echo=FALSE}
+email2<-separate_rows(email,guest,sep=",")
 
-
-knitr::kable() %>% 
+guest_email2=tibble::as_tibble(guest) %>% 
+  left_join(email2,by=c("name"="guest"))
+knitr::kable(guest_email2) %>% 
 kable_styling("striped", latex_options = "scale_down",full_width = FALSE)
 ```
 
@@ -154,14 +155,21 @@ kable_styling("striped", latex_options = "scale_down",full_width = FALSE)
 Who do we have emails for, yet are not on the guestlist?
 
 ```{r}
+emails_nolist<-right_join(guest,email2,by=c("name"="guest"))
 
+knitr::kable(emails_nolist) %>% 
+kable_styling("striped", latex_options = "scale_down",full_width = FALSE)
+  
 ```
 
 ### 3.3 Make a guestlist
 Make a guestlist that includes everyone we have emails for (in addition to those on the original guestlist).
 
 ```{r}
-
+merged_list=tibble::as_tibble(guest) %>% 
+  full_join(email2,by=c("name"="guest"))
+knitr::kable(merged_list) %>% 
+kable_styling("striped", latex_options = "scale_down",full_width = FALSE)
 ```
 
 
