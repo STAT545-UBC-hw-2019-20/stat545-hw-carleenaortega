@@ -3,10 +3,10 @@ title: 'HW04: Tidy data and joins'
 author: "Carleena Ortega"
 date: "02/10/2019"
 output:
+  pdf_document:
+    toc: yes
   html_document:
     theme: yeti
-    toc: yes
-  pdf_document:
     toc: yes
 ---
 
@@ -148,7 +148,8 @@ For each guest in the guestlist (guest tibble), add a column for email address, 
 
 ```{r echo=FALSE, warning=FALSE}
 email2<-separate_rows(email,guest,sep=",")
-
+email2$guest <- factor(email2$guest)
+email2[,1] <- trimws(email2[,1])
 guest_email2=tibble::as_tibble(guest) %>% 
   left_join(email2,by=c("name"="guest"))
 knitr::kable(guest_email2) %>% 
@@ -159,13 +160,15 @@ kable_styling("striped", latex_options = "scale_down",full_width = FALSE)
 Who do we have emails for, yet are not on the guestlist?
 
 ```{r}
-emails_nonlist<-left_join(email2,guest,by=c("guest"=="name"))
+emails_nonlist<-left_join(email2,guest,by=c("guest"="name"))
 
 knitr::kable(emails_nonlist) %>% 
 kable_styling("striped", latex_options = "scale_down",full_width = FALSE)
   
 ```
-
+```{r}
+emails_nonlist2 <- emails_nonlist %>% dplyr::filter(is.na(party))
+```
 ### 3.3 Make a guestlist
 Make a guestlist that includes everyone we have emails for (in addition to those on the original guestlist).
 
