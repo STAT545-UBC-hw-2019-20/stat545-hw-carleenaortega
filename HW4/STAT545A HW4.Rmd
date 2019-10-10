@@ -3,10 +3,10 @@ title: 'HW04: Tidy data and joins'
 author: "Carleena Ortega"
 date: "02/10/2019"
 output:
+  pdf_document:
+    toc: yes
   html_document:
     theme: yeti
-    toc: yes
-  pdf_document:
     toc: yes
 ---
 
@@ -130,10 +130,10 @@ Do *ALL* of the activities in this section.
 
 Read in the made-up wedding guestlist and email addresses using the following lines (go ahead and copy-paste these):
 
-```{r}
+```{r csv links, paged.print=FALSE, width=1}
 guest <- read.csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/attend.csv")
 
-email <-read.csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/emails.csv")
+email <- read.csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/emails.csv")
 ```
 
 
