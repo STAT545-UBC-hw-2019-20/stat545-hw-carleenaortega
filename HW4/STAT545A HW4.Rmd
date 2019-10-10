@@ -42,9 +42,7 @@ knitr::kable(t1_wide) %>%
   kable_styling("striped",latex_options="basic",full_width=FALSE,position="center")
 ```
 
-
 2. Is there a plot that is easier to make with the data in this shape versis the usual form? Try making such a plot!
-3. Re-lengthen the data.
 
 
 
@@ -72,7 +70,6 @@ ggplot(t1_wide) +
   theme_light()
 ```
 
-
 #```{r}
 ggplot(t1_wide) +
   geom_line(aes(year,n,group=n,color=n, alpha=0.3))+
@@ -80,6 +77,12 @@ ggplot(t1_wide) +
   title="Growth of the Mean Life Expectancy of Each Continent")+
   theme_light()
 ```
+
+3. Re-lengthen the data.
+```{r}
+
+```
+
 
 # Exercise 2: Multivariate Data Reshaping
 Choose *EITHER* “Multivariate Option 1” or “Multivariate Option 2”. All of these problems have two components:
