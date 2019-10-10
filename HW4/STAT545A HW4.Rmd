@@ -3,10 +3,10 @@ title: 'HW04: Tidy data and joins'
 author: "Carleena Ortega"
 date: "02/10/2019"
 output:
-  pdf_document:
-    toc: yes
   html_document:
     theme: yeti
+    toc: yes
+  pdf_document:
     toc: yes
 ---
 
@@ -61,6 +61,8 @@ ggplot(t1_wide) +
   labs(x="Year",y="Mean Life Expectancy of Each Continent",
   title="Growth of the Mean Life Expectancy of Each Continent (Reshaped)")+
   theme_light()
+
+# try making bar graph for each year in each continent
 ```
 
 ```{r}
@@ -118,6 +120,8 @@ pivot_longer(cols=c(-year),names_to=c("Variable","Country"),names_sep="_")
 knitr::kable(t2_longer) %>% 
   kable_styling("striped",latex_options = "basic",
     full_width = FALSE,position="center")
+
+#back to the original format
 ```
 
 
@@ -130,7 +134,7 @@ Do *ALL* of the activities in this section.
 
 Read in the made-up wedding guestlist and email addresses using the following lines (go ahead and copy-paste these):
 
-```{r csv links, paged.print=FALSE, width=1}
+```{r csv links, linewidth=40,out.width=1}
 guest <- read.csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/attend.csv")
 
 email <- read.csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/emails.csv")
@@ -142,7 +146,7 @@ Then, complete the following tasks using the tidyverse (tidyr, dplyr, …). No n
 ### 3.1 Add emails
 For each guest in the guestlist (guest tibble), add a column for email address, which can be found in the email tibble.
 
-```{r echo=FALSE}
+```{r echo=FALSE, warning=FALSE}
 email2<-separate_rows(email,guest,sep=",")
 
 guest_email2=tibble::as_tibble(guest) %>% 
@@ -155,9 +159,9 @@ kable_styling("striped", latex_options = "scale_down",full_width = FALSE)
 Who do we have emails for, yet are not on the guestlist?
 
 ```{r}
-emails_nolist<-right_join(guest,email2,by=c("name"="guest"))
+emails_nonlist<-left_join(email2,guest,by=c("guest"=="name"))
 
-knitr::kable(emails_nolist) %>% 
+knitr::kable(emails_nonlist) %>% 
 kable_styling("striped", latex_options = "scale_down",full_width = FALSE)
   
 ```
