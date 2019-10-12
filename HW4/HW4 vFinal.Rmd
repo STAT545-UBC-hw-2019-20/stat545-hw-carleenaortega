@@ -1,0 +1,191 @@
+---
+title: 'HW04: Tidy data and joins'
+author: "Carleena Ortega"
+date: "11/10/2019"
+output:
+  pdf_document:
+    toc: yes
+  html_document:
+    theme: cerulean
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+suppressPackageStartupMessages(library(tidyr))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(gapminder))
+suppressPackageStartupMessages(library(knitr))
+suppressPackageStartupMessages(library(kableExtra))
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Exercise 1: Univariate Data Reshaping
+Choose *EITHER* “Univariate Option 1” or “Univariate Option 2”. 
+Both of these problems have three components:
+
+1. Putting data in wider format
+2. Producing a plot of the wide data
+3. Re-lengthening the wider data
+
+### **Univariate Option 1**
+1. Make a tibble with one row per year, and columns for life expectancy for two or more countries.
+
+```{r}
+t1<-gapminder %>% 
+    select(year,country,lifeExp) %>% 
+    filter(country=="Philippines"|country=="Mexico") %>% 
+    group_by(year) %>% 
+  pivot_wider(names_from="country",values_from=c("lifeExp"))
+
+knitr::kable(t1) %>% 
+  kable_styling("striped",latex_options="basic",
+    full_width=FALSE,position="center")
+```
+This widened table makes it easier to compare the life expectancies of Mexico and the Philippines compared with the original untidy data. We can see that the life expectancy of Filipinos is lower than Mexicans.
+
+2. Take advantage of this new data shape to scatterplot life expectancy for one country against that of another.
+```{r}
+t1 %>% 
+  ggplot(aes(Philippines,Mexico)) +
+  geom_point()+ xlim(40,80)+ ylim(40,80)+
+  geom_line(colour="blue")+
+  labs(title="Annual Life Expectancy of the Philippines is Lower than Mexico")+
+  theme_light()
+```
+The scatter plot comparing the life expectancy of the Philippines and Mexico show that both countries have an increasing life expectancy over the years. However, the life expectancy of the Philippines is lower.
+
+3. Re-lengthen the data.
+```{r}
+t1_relength<-t1 %>% 
+  pivot_longer(cols = c(-year), 
+               names_to  = "continent", 
+               values_to = "lifeExp") %>% 
+  arrange(continent)
+
+  knitr::kable(t1_relength) %>% 
+    kable_styling("striped",latex_options="basic",font_size=8,
+      full_width=FALSE, position="center")
+```
+We've succesfully re-lengthened the previously widened data by using pivot_longer.
+
+
+### ~~Univariate Option 2~~
+
+1. Compute some measure of life expectancy (mean? median? min? max?) for all possible combinations of continent and year. Reshape that to have one row per year and one variable for each continent. Or the other way around: one row per continent and one variable per year.
+
+
+2. Is there a plot that is easier to make with the data in this shape versis the usual form? Try making such a plot!
+
+3. Re-lengthen the data.
+
+# Exercise 2: Multivariate Data Reshaping
+Choose *EITHER* “Multivariate Option 1” or “Multivariate Option 2”. All of these problems have two components:
+
+1. Putting data in wider format
+2. Re-lengthening the data
+
+### **Multivariate Option 1**
+1. Make a tibble with one row per year, and columns for life expectancy and GDP per capita (or two other numeric variables) for two or more countries.
+
+```{r}
+t2<-gapminder %>% 
+    select(year,country,lifeExp,gdpPercap) %>% 
+    filter(country=="Canada"|country=="Japan") %>% 
+  pivot_wider(names_from="country",names_sep="_",
+     values_from=c("lifeExp","gdpPercap"))
+
+  knitr::kable(t2) %>% 
+  kable_styling("striped",latex_options = "basic",
+    full_width = FALSE,position="center")
+```
+The widened table enables us to easily compare the life expectancy and the GDP per capita between Canada and Japan. 
+
+
+2. Re-lengthen the data.
+
+```{r}
+t2_longer<-t2 %>% 
+pivot_longer(cols=c(-year),names_to=c(".value","Country"),names_sep="_")
+
+knitr::kable(t2_longer) %>% 
+  kable_styling("striped",latex_options = "basic",
+    full_width = FALSE,position="center")
+
+```
+We have successfully returned the widened data to its original format.
+
+
+### ~~Multivariate Option 2~~
+1. Compute some measure of life expectancy and GDP per capita (or two other numeric variables) (mean? median? min? max?) for all possible combinations of continent and year. Reshape that to have one row per year and one variable for each continent-measurement combination. Or the other way around: one row per continent and one variable for each year-measurement combination. 
+2.Re-lengthen the data.
+
+# Exercise 3: Table Joins
+Do *ALL* of the activities in this section.
+
+Read in the made-up wedding guestlist and email addresses using the following lines (go ahead and copy-paste these):
+
+```{r csv links, linewidth=40,out.width=1}
+guest <- read.csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/attend.csv")
+
+email <- read.csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/emails.csv")
+```
+The guestlist is as follows:
+```{r}
+guest %>% 
+  knitr::kable() %>% 
+  kable_styling("striped",latex_options = "basic",
+    full_width = FALSE,position="center")
+
+```
+
+
+The email addresses are as displayed:
+```{r}
+email %>% 
+  knitr::kable() %>% 
+  kable_styling("striped",latex_options = "basic",
+    full_width = FALSE,position="center")
+```
+
+Then, complete the following tasks using the tidyverse (tidyr, dplyr, …). No need to do any pivoting – feel free to leave guest in its current format.
+
+### 3.1 Add emails
+For each guest in the guestlist (guest tibble), add a column for email address, which can be found in the email tibble.
+
+```{r warning=FALSE}
+email<-separate_rows(email,guest,sep=",") 
+# this separates the guests' names within the same party into its own row (unlike the table above)
+
+email[,1] <- trimws(email[,1]) 
+#we trim the white spaces between the guests since it was hindering the proper joining of the tables
+
+left_join(guest,email,by=c("name"="guest")) %>% 
+knitr::kable() %>% 
+kable_styling("striped", latex_options = "scale_down",full_width = FALSE)
+```
+Now we can associate each e-mail address with the respective guests in the guest list.
+
+### 3.2 Filter emails
+Who do we have emails for, yet are not on the guestlist?
+
+```{r}
+anti_join(email,guest,by=c("guest"="name")) %>% 
+knitr::kable() %>% 
+kable_styling("striped", latex_options = "scale_down",full_width = FALSE)
+```
+We have three guests who are in the e-mail list but have not yet been included in the guest list! We should contact them soon and ask for their meal preferences and attendance to the events.
+
+### 3.3 Make a guestlist
+
+Make a guestlist that includes everyone we have emails for (in addition to those on the original guestlist).
+
+```{r,warning=FALSE}
+full_join(guest,email,by=c("name"="guest")) %>% 
+knitr::kable() %>% 
+kable_styling("striped", latex_options = "scale_down",full_width = FALSE)
+```
+
+Now we have one table to refer to for the guests, their meal preferences, attendance, and e-mail. This makes it easier to plan for the wedding! 
+
+
