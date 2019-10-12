@@ -3,10 +3,10 @@ title: 'HW04: Tidy data and joins'
 author: "Carleena Ortega"
 date: "11/10/2019"
 output:
-  pdf_document:
-    toc: yes
   html_document:
     theme: cerulean
+    toc: yes
+  pdf_document:
     toc: yes
 ---
 
@@ -53,6 +53,7 @@ t1 %>%
   labs(title="Annual Life Expectancy of the Philippines is Lower than Mexico")+
   theme_light()
 ```
+
 The scatter plot comparing the life expectancy of the Philippines and Mexico show that both countries have an increasing life expectancy over the years. However, the life expectancy of the Philippines is lower.
 
 3. Re-lengthen the data.
@@ -64,9 +65,10 @@ t1_relength<-t1 %>%
   arrange(continent)
 
   knitr::kable(t1_relength) %>% 
-    kable_styling("striped",latex_options="basic",font_size=8,
+    kable_styling("striped",latex_options="basic",
       full_width=FALSE, position="center")
 ```
+
 We've succesfully re-lengthened the previously widened data by using pivot_longer.
 
 
@@ -169,7 +171,7 @@ Now we can associate each e-mail address with the respective guests in the guest
 ### 3.2 Filter emails
 Who do we have emails for, yet are not on the guestlist?
 
-```{r}
+```{r warning=FALSE}
 anti_join(email,guest,by=c("guest"="name")) %>% 
 knitr::kable() %>% 
 kable_styling("striped", latex_options = "scale_down",full_width = FALSE)
