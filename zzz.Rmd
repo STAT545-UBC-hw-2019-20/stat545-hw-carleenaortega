@@ -1,0 +1,144 @@
+---
+title: "STAT 545A - Assignment 4"
+author: "Sean La"
+date: "08/10/2019"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(gapminder)
+library(tidyverse)
+```
+
+# Exercise 1
+## Univariate Option 1
+We'll work with the `gapminder` dataset for this exercise.
+We'll take the life expectancies of France, Germany, and Austria.
+
+```{r}
+# This tibble will contain the life expectancies. It will be quite wide.
+(wide_life_exp_tbl <- gapminder %>% 
+  filter(country %in% c('France','Germany','Austria')) %>% # Select France, Germany, and Austria
+  select(country, year, lifeExp) %>% # Select only the columns 'country', 'year', and 'lifeExp', since we don't need the other columns. 
+  pivot_wider(id_cols = year,        # Pivot the table to make it wider, each column corresponding to a country, and the entries below the columns
+              names_from = country,  # being the life expectancies for each year.
+              values_from = lifeExp))
+```
+
+Let's now compare the life expectancies of France versus the other three countries.
+
+```{r}
+wide_life_exp_tbl %>% 
+  ggplot(aes(x=France,y=Austria)) + # Compare the life expectancies between France and Austria
+  geom_point() # Scatterplot it
+```
+
+Each point in the above plot corresponds to every fifth year between 1952 to 2007 inclusive.
+The x-value of the point is the life expectancy of France in that year, and the y-value is the life expectancy of Austria.
+The points lie roughly on the line $y=x$, which implies that Austria and France have had similar life expectancies from 1952 to 2007.
+As well, because the points lie on the line $y = x$, this also implies that Austria and France have had similar changes in life expectancy from 1952 to 2007.
+
+```{r}
+wide_life_exp_tbl %>% 
+  ggplot(aes(x=France, y=Germany)) + # Compare the life expectancies between France and Germany
+  geom_point() # Scatterplot it
+```
+
+This plot looks very similar to the plot between France and Austria's life expectancies, so we can also conclude that France and Austria have had similar life expectancies between 1952 and 2007, as well as similar increase in life expectancy in that same timeframe.
+
+Let's now reshape the tibble to be in long format again.
+
+```{r}
+(long_life_exp_tbl <- wide_life_exp_tbl %>% 
+  pivot_longer(cols = c('Austria', 'Germany', 'France'),
+               names_to = 'country',
+               values_to = 'lifeExp'))
+```
+
+Good as new!
+
+# Exercise 2
+## Multivariate option 2
+
+Let's make a wide tibble where each row is year, and the columns are life expectancy and GDP per capita for Iceland and Denmark.
+
+```{r}
+(wide_multivariate_tbl <- gapminder %>% 
+  select(year, country, lifeExp, gdpPercap) %>% # Select the year, country, life expectancy, and GDP per capita columns.
+  filter(country %in% c('Iceland', 'Denmark')) %>% 
+  pivot_wider(id_cols = year,
+              names_from = country,
+              names_sep = '_',
+              values_from = c(lifeExp, gdpPercap)))
+```
+Now each column corresponds to the life expectancy or GDP per capita for either Denmark or Iceland.
+
+Let's make the tibble longer again, using science!
+
+```{r}
+wide_multivariate_tbl %>% 
+  pivot_longer(cols = -year,
+               names_to = c('.value','country'),
+               names_sep = '_')
+```
+
+We've successfully converted the four columns for life expectancy and GDP per capita for Iceland and Denmark into three columns.
+
+# Exercise 3
+Let's download the data for this exercise.
+```{r, message=FALSE}
+guest <- read_csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/attend.csv")
+email <- read_csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/emails.csv")
+```
+The `guest` dataset looks like this:
+```{r}
+guest
+```
+The `email` dataset looks like so:
+```{r}
+email
+```
+The `email` dataset is kind of inconvenient at the moment in that several guests are grouped in the same row.
+Let's make a row for each unique guest.
+
+```{r}
+# `sep = ', '` indicates that guest names are separated by a comma, followed by a space
+(email <- email %>% separate_rows(guest, sep = ', ')) 
+```
+That's better! Let's now work with the datasets.
+
+## Exercise 3.1 
+Let's add a column corresponding to the email for each guest.
+
+```{r}
+left_join(guest, email, by=c("name" = "guest"))
+```
+
+Each guest is paired with an email now.
+
+## Exercise 3.2
+Let's find out people who we have emails for, but are not on the guestlist.
+
+```{r}
+anti_join(email, guest, by=c('guest' = 'name'))
+```
+Turner, Albert, and Vivian are not invited to the wedding! 
+This will make for some juicy gossip at the next country club meeting.
+
+## Exercise 3.3
+Ah, I forgot we're not in high school anymore, so we should put everyone in `email` on the guest list to avoid drama.
+
+```{r}
+complete_guestlist <- full_join(guest, email, by = c('name' = 'guest'))
+```
+
+Let's confirm that Turner, Albert, and Vivian are indeed on the guestlist now.
+
+```{r}
+complete_guestlist %>% filter(name %in% c('Turner Jones', 'Albert Marshall', 'Vivian Marshall'))
+```
+
+They're on the list now! Perfect.

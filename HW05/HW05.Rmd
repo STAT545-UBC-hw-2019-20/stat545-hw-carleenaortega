@@ -1,0 +1,108 @@
+---
+title: 'HW05: Factor and Figure Management'
+author: "Carleena Ortega"
+date: "14/10/2019"
+output: 
+  html_document:
+    toc: true
+  pdf_document:
+    toc: true
+---
+
+```{r}
+suppressPackageStartupMessages(library(gapminder))
+suppressPackageStartupMessages(library(tibble))
+suppressPackageStartupMessages(library(forcats))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(knitr))
+suppressPackageStartupMessages(library(kableExtra))
+```
+
+
+
+# Exercise 1: Explain the value of the here::here package
+
+In your own words, summarize the value of the here::here package in 250 words or fewer.
+
+# Exercise 2: Factor management
+
+We choose the `gapminder` dataset and select `continent` as the factor to explore. The code below determines whether gapminder's continent is a factor (TRUE) or not (FALSE).
+```{r}
+is.factor(gapminder$continent)
+```
+
+Now that we have verified that `continent` is truly a factor, our next step is to explore the effects of re-leveling a factor with the gapminder data set.
+
+We drop the observations from the continent of Oceania. 
+
+
+Drop Oceania. Filter the Gapminder data to remove observations associated with the continent of Oceania. /Additionally, remove unused factor levels. Provide concrete information on the data before and after removing these rows and Oceania; address the number of rows and the levels of the affected factors.
+
+Reorder the levels of country or continent. Use the forcats package to change the order of the factor levels, based on summarized information of one of the quantitative variables. Consider experimenting with a summary statistic beyond the most basic choice of the mean/median. Use the forcats package in the tidyverse for this, rather than the baseR function as.factor.
+
+Explore the effects of re-leveling a factor in a tibble by:
+
+comparing the results of arrange on the original and re-leveled factor.
+Plotting a figure of before/after re-leveling the factor (make sure to assign the factor to an aesthetic of your choosing).
+These explorations should involve the data, the factor levels, and at least two figures (before and after.
+
+
+```{r}
+gapminder %>% 
+  filter(continent !="Oceania") %>% 
+  arrange(continent) %>% 
+knitr::kable() %>% 
+kable_styling("striped")
+```
+
+
+
+```{r}
+b<-gapminder %>% 
+  filter(continent !="Oceania") %>% 
+  droplevels("country")
+knitr::kable(b) %>% 
+  kable_styling("striped")
+```
+
+
+
+```{r}
+gapminder
+```
+
+
+
+
+# Exercise 3: File input/output (I/O)
+Task: Experiment with at least one of:
+
+write_csv()/read_csv() (and/or TSV friends),
+saveRDS()/readRDS(),
+dput()/dget().
+You are expected to create something new, probably by filtering or grouped-summarization of your dataset (for e.g., Singer, Gapminder, or another dataset), export it to disk and then reload it back in using one of the packages above. You should use here::here() for reading in and writing out.
+
+With the imported data, play around with factor levels and use factors to order your data with one of your factors (i.e. non-alphabetically). For the I/O method(s) you chose, comment on whether or not your newly created file survived the round trip of writing to file then reading back in.
+
+# Exercise 4: Visualization design (20%)
+Rubric:
+
+5%: Writing
+5%: Accuracy
+10%: Vis quality
+Go back through your previous assignments and class participation activities and find figures you created prior to the last week of the course. Recreate at least one figure in light of something you learned in the recent class meetings about visualization design and color.
+
+Task: Create a side-by-side plot and juxtapose your first attempt (show the original figure as-is) with a revised attempt after some time spent working on it and implementing principles of effective plotting principles. Comment and reflect on the differences.
+
+# Exercise 5: Writing figures to file (10%)
+5%: Accuracy
+5%: Code quality
+Task: Use ggsave() to explicitly save a plot to file. Include the exported plot as part of your repository and assignment.
+
+Then, use ![Alt text] (/path/to/img.png) to load and embed that file into your report. You can play around with various options, such as:
+
+Arguments of ggsave(), such as width, height, resolution or text scaling.
+Various graphics devices, e.g. a vector vs. raster format.
+Explicit provision of the plot object p via ggsave(..., plot = p). Show a situation in which this actually matters.
