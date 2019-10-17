@@ -401,11 +401,22 @@ suppressPackageStartupMessages(library(kableExtra))</code></pre>
 </div>
 <div id="exercise-2-factor-management" class="section level1">
 <h1>Exercise 2: Factor management</h1>
-<p>We choose the <code>gapminder</code> dataset and select <code>continent</code> as the factor to explore. The code below determines whether gapminder’s continent is a factor (TRUE) or not (FALSE).</p>
-<pre class="r"><code>is.factor(gapminder$continent)</code></pre>
-<pre><code>## [1] TRUE</code></pre>
-<p>Now that we have verified that <code>continent</code> is truly a factor, our next step is to explore the effects of re-leveling a factor with the gapminder data set.</p>
-<p>We drop the observations from the continent of Oceania.</p>
+<p>We choose the <code>gapminder</code> dataset and select <code>continent</code> as the factor to explore. The code below determines whether gapminder’s continent is a factor or not; how many levels it has and what these levels are.</p>
+<pre class="r"><code>class(gapminder$continent)</code></pre>
+<pre><code>## [1] &quot;factor&quot;</code></pre>
+<pre class="r"><code>nlevels(gapminder$continent)</code></pre>
+<pre><code>## [1] 5</code></pre>
+<pre class="r"><code>levels(gapminder$continent)</code></pre>
+<pre><code>## [1] &quot;Africa&quot;   &quot;Americas&quot; &quot;Asia&quot;     &quot;Europe&quot;   &quot;Oceania&quot;</code></pre>
+<p>We now know that <code>continent</code> is a factor with 5 levels named Africa, Americas, Asia, Europe, and Oceania.</p>
+<p>Now that we have verified that <code>continent</code> is a factor, our next step is to explore the effects of re-leveling a factor with the gapminder data set. We drop the observations from the continent of Oceania.</p>
+<pre class="r"><code>drop_Ocn&lt;-gapminder %&gt;% 
+  filter(continent !=&quot;Oceania&quot;) %&gt;% 
+  droplevels()
+
+drop_Ocn$continent %&gt;% 
+  nlevels()</code></pre>
+<pre><code>## [1] 4</code></pre>
 <p>Drop Oceania. Filter the Gapminder data to remove observations associated with the continent of Oceania. /Additionally, remove unused factor levels. Provide concrete information on the data before and after removing these rows and Oceania; address the number of rows and the levels of the affected factors.</p>
 <p>Reorder the levels of country or continent. Use the forcats package to change the order of the factor levels, based on summarized information of one of the quantitative variables. Consider experimenting with a summary statistic beyond the most basic choice of the mean/median. Use the forcats package in the tidyverse for this, rather than the baseR function as.factor.</p>
 <p>Explore the effects of re-leveling a factor in a tibble by:</p>
