@@ -59,7 +59,7 @@ We have successfully filtered out the data from Oceania as we now have only 4 le
 Our next goal is to explore the effects of re-leveling a factor with the gapminder data set.
 
 ```{r}
-gapminder %>% 
+drop_Ocn %>% 
   group_by(continent) %>% 
   mutate("max GDP"=max(gdpPercap)) %>% 
   ggplot()+
@@ -72,7 +72,7 @@ gapminder %>%
 By default, the continents are arranged alphabetically. We can use the forcats package (fct_infreq  and fct_rev() commands) to arrange the continents by frequence and in an ascending order of max (gross domestic product) GDP, respectively.
 
 ```{r}
-gapminder %>% 
+drop_Ocn %>% 
   group_by(continent) %>% 
   mutate("max GDP"=max(gdpPercap)) %>% 
   ggplot()+
@@ -83,10 +83,6 @@ gapminder %>%
 ```
 This is a more appealing and understandable way of presenting the max GDP of each continent compared to the plot above
 Explore the effects of re-leveling a factor in a tibble by:
-
-comparing the results of arrange on the original and re-leveled factor.
-Plotting a figure of before/after re-leveling the factor (make sure to assign the factor to an aesthetic of your choosing).
-These explorations should involve the data, the factor levels, and at least two figures (before and after.
 
 
 ```{r}
