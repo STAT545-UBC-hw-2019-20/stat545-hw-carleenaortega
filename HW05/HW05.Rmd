@@ -87,36 +87,61 @@ This is a more appealing and understandable way of presenting the max GDP of eac
 # Exercise 3: File input/output (I/O)
 Task: Experiment with at least one of:
 
-write_csv()/read_csv() (and/or TSV friends),
-saveRDS()/readRDS(),
-dput()/dget().
-You are expected to create something new, probably by filtering or grouped-summarization of your dataset (for e.g., Singer, Gapminder, or another dataset), export it to disk and then reload it back in using one of the packages above. You should use here::here() for reading in and writing out.
 
-With the imported data, play around with factor levels and use factors to order your data with one of your factors (i.e. non-alphabetically). For the I/O method(s) you chose, comment on whether or not your newly created file survived the round trip of writing to file then reading back in.
-
+For this exercise, we will modify the `gapminder` data set to show only data from Africa in 2007. We will then export this file using write_csv().
 ```{r}
+gm_africa2007 <-gapminder %>% 
+  filter(year == 2007, continent=="Africa")
 
-gm_asia2000<-gapminder %>% 
-  filter(year == 2000, continent=="Asia")
-
-
-  
+write_csv(gm_africa2007,here::here("./HW05","gm_africa2007.csv"))
 ```
 
+We will now reload the exported file back into R using read_csv() and play around its factor levels
 
-# Exercise 4: Visualization design (20%)
-Rubric:
+```{r}
+read_csv(here::here("./HW05/gm_africa2007.csv")) %>% 
+  arrange(lifeExp) %>%
+  ggplot()+
+  geom_point(aes(x=lifeExp,y=fct_reorder(country,lifeExp)))+
+  labs(x="Country",y="Life Expectancy (years)",title="The Life Expectancy of African countries in 2007")+
+  theme_bw()
+```
 
-5%: Writing
-5%: Accuracy
-10%: Vis quality
-Go back through your previous assignments and class participation activities and find figures you created prior to the last week of the course. Recreate at least one figure in light of something you learned in the recent class meetings about visualization design and color.
+The life expectancy of Africans in 2007 ranges from around 40 to 79 with Swaziland having the lowest life expectancy and Reunion with the highest life expectancy.
+
+We exclude the countries with a life expectancy less than 50 years using filter() and droplevels() in the following plot:
+```{r warning= FALSE}
+read_csv(here::here("./HW05/gm_africa2007.csv")) %>% 
+  filter(lifeExp>50) %>% 
+  droplevels() %>% 
+  ggplot()+
+  geom_point(aes(x=lifeExp,y=fct_reorder(country,lifeExp)))+
+  labs(x="Country",y="Life Expectancy (years)",title="The Life Expectancy of African countries in 2007")+
+  theme_bw()
+```
+
+We have successfully exported, imported, and modified the gm_africa2007 file. Therefore, I can say that it has successfully passed being written to file and being read back in.
+
+# Exercise 4: Visualization design
 
 Task: Create a side-by-side plot and juxtapose your first attempt (show the original figure as-is) with a revised attempt after some time spent working on it and implementing principles of effective plotting principles. Comment and reflect on the differences.
 
+I have chosen to revise the plot I made for HW01 Exercise 2. The code and plot are as follows:
+```{r}
+gapminder %>% 
+  arrange(country)%>%
+  filter(year == 1952) %>% 
+  mutate(continent = fct_infreq(continent)) %>% 
+  ggplot(aes(continent)) +
+  geom_bar(aes()) +
+  theme_light()
+```
+
+
+
+
 # Exercise 5: Writing figures to file (10%)
-5%: Accuracy
-5%: Code quality
+
 Task: Use ggsave() to explicitly save a plot to file. Include the exported plot as part of your repository and assignment.
 
 Then, use ![Alt text] (/path/to/img.png) to load and embed that file into your report. You can play around with various options, such as:
