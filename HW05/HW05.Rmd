@@ -64,22 +64,24 @@ gapminder %>%
   mutate("max GDP"=max(gdpPercap)) %>% 
   ggplot()+
   geom_bar(aes(continent),colour="light blue", fill="light blue")+
-  labs(x="Continent",y=",ax GDP ($)",title="The Max GDP of continents")+
+  labs(x="Continent",y=",ax GDP ($)",title="The Max GDP of continents (Original)")+
   theme_bw()
   
 ```
 
-By default, the continents are arranged alphabetically. We can use the forcats package (fct_rev() command) to arrange the continents in an ascending order of max GDP.
+By default, the continents are arranged alphabetically. We can use the forcats package (fct_infreq  and fct_rev() commands) to arrange the continents by frequence and in an ascending order of max (gross domestic product) GDP, respectively.
 
 ```{r}
 gapminder %>% 
+  group_by(continent) %>% 
+  mutate("max GDP"=max(gdpPercap)) %>% 
   ggplot()+
-  geom_bar(aes(fct_reorder(continent,gdpPercap,max)),colour="royal blue", fill="royal blue")+
-  labs(x="Continent",y="Max GDP ($)",title="The Max GDP of continents")+
+  geom_bar(aes(fct_rev(fct_infreq(continent))),colour="royal blue", fill="royal blue")+
+  labs(x="Continent",y="Max GDP ($)",title="The Max GDP of continents (Reordered)")+
   theme_bw()
   
 ```
-This is an easier way of showing 
+This is a more appealing and understandable way of presenting the max GDP of each continent compared to the plot above
 Explore the effects of re-leveling a factor in a tibble by:
 
 comparing the results of arrange on the original and re-leveled factor.
