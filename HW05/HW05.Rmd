@@ -33,10 +33,12 @@ We choose the `gapminder` dataset and select `continent` as the factor to explor
 class(gapminder$continent)
 nlevels(gapminder$continent)
 levels(gapminder$continent)
-```
-We now know that `continent` is a factor with 5 levels named Africa, Americas, Asia, Europe, and Oceania.
 
-Now that we have verified that `continent` is a factor, our next step is to explore the effects of re-leveling a factor with the gapminder data set. We drop the observations from the continent of Oceania. 
+str(gapminder)
+```
+We now know that `continent` is a factor with 5 levels named Africa, Americas, Asia, Europe, and Oceania. We also have 1704 rows or observations as shown by the str() function.
+
+Our next step is to filter and drop levels. We filter out Oceania and then drop the unused factor levels in continent. 
 
 ```{r}
 drop_Ocn<-gapminder %>% 
@@ -44,15 +46,22 @@ drop_Ocn<-gapminder %>%
   droplevels()
 
 drop_Ocn$continent %>% 
-  nlevels()
+  nlevels() 
 
+drop_Ocn$continent %>% 
+  levels()
+
+str(drop_Ocn)
+```
+
+We have successfully filtered out the data from Oceania as we now have only 4 levels in continent named Africa, Americas, Asia, and Europe. The str() function also shows that we have 1680 observations, which is less than the original dataset (1704 observations).
+
+Our next goal is to explore the effects of re-leveling a factor with the gapminder data set.
+
+```{r}
 
 ```
 
-
-Drop Oceania. Filter the Gapminder data to remove observations associated with the continent of Oceania. /Additionally, remove unused factor levels. Provide concrete information on the data before and after removing these rows and Oceania; address the number of rows and the levels of the affected factors.
-
-Reorder the levels of country or continent. Use the forcats package to change the order of the factor levels, based on summarized information of one of the quantitative variables. Consider experimenting with a summary statistic beyond the most basic choice of the mean/median. Use the forcats package in the tidyverse for this, rather than the baseR function as.factor.
 
 Explore the effects of re-leveling a factor in a tibble by:
 

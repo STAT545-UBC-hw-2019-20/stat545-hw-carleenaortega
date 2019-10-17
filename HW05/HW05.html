@@ -408,17 +408,36 @@ suppressPackageStartupMessages(library(kableExtra))</code></pre>
 <pre><code>## [1] 5</code></pre>
 <pre class="r"><code>levels(gapminder$continent)</code></pre>
 <pre><code>## [1] &quot;Africa&quot;   &quot;Americas&quot; &quot;Asia&quot;     &quot;Europe&quot;   &quot;Oceania&quot;</code></pre>
-<p>We now know that <code>continent</code> is a factor with 5 levels named Africa, Americas, Asia, Europe, and Oceania.</p>
-<p>Now that we have verified that <code>continent</code> is a factor, our next step is to explore the effects of re-leveling a factor with the gapminder data set. We drop the observations from the continent of Oceania.</p>
+<pre class="r"><code>str(gapminder)</code></pre>
+<pre><code>## Classes 'tbl_df', 'tbl' and 'data.frame':    1704 obs. of  6 variables:
+##  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ pop      : int  8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...</code></pre>
+<p>We now know that <code>continent</code> is a factor with 5 levels named Africa, Americas, Asia, Europe, and Oceania. We also have 1704 rows or observations.</p>
+<p>Our next step is to explore the difference between filtering and dropping levels. First we filter out Oceania and then drop the unused factor levels in continent.</p>
 <pre class="r"><code>drop_Ocn&lt;-gapminder %&gt;% 
   filter(continent !=&quot;Oceania&quot;) %&gt;% 
   droplevels()
 
 drop_Ocn$continent %&gt;% 
-  nlevels()</code></pre>
+  nlevels() </code></pre>
 <pre><code>## [1] 4</code></pre>
-<p>Drop Oceania. Filter the Gapminder data to remove observations associated with the continent of Oceania. /Additionally, remove unused factor levels. Provide concrete information on the data before and after removing these rows and Oceania; address the number of rows and the levels of the affected factors.</p>
-<p>Reorder the levels of country or continent. Use the forcats package to change the order of the factor levels, based on summarized information of one of the quantitative variables. Consider experimenting with a summary statistic beyond the most basic choice of the mean/median. Use the forcats package in the tidyverse for this, rather than the baseR function as.factor.</p>
+<pre class="r"><code>drop_Ocn$continent %&gt;% 
+  levels()</code></pre>
+<pre><code>## [1] &quot;Africa&quot;   &quot;Americas&quot; &quot;Asia&quot;     &quot;Europe&quot;</code></pre>
+<pre class="r"><code>str(drop_Ocn)</code></pre>
+<pre><code>## Classes 'tbl_df', 'tbl' and 'data.frame':    1680 obs. of  6 variables:
+##  $ country  : Factor w/ 140 levels &quot;Afghanistan&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ continent: Factor w/ 4 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ pop      : int  8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...</code></pre>
+<p>We have successfully filtered out the data from Oceania as we now have only 4 levels in continent named Africa, Americas, Asia, and Europe. The str() function also shows that we have 1680 observations, which is less than the original dataset (1704 observations).</p>
+<p>ur next step is to explore the effects of re-leveling a factor with the gapminder data set. Reorder the levels of country or continent. Use the forcats package to change the order of the factor levels, based on summarized information of one of the quantitative variables. Consider experimenting with a summary statistic beyond the most basic choice of the mean/median. Use the forcats package in the tidyverse for this, rather than the baseR function as.factor.</p>
 <p>Explore the effects of re-leveling a factor in a tibble by:</p>
 <p>comparing the results of arrange on the original and re-leveled factor. Plotting a figure of before/after re-leveling the factor (make sure to assign the factor to an aesthetic of your choosing). These explorations should involve the data, the factor levels, and at least two figures (before and after.</p>
 <pre class="r"><code>gapminder %&gt;% 
