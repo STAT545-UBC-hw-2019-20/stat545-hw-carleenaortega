@@ -69,7 +69,7 @@ gapminder %>%
   
 ```
 
-By default, the continents are arranged alphabetically. We can use the forcats package to arrange the continents in an ascending order of max GDP.
+By default, the continents are arranged alphabetically. We can use the forcats package (fct_rev() command) to arrange the continents in an ascending order of max GDP.
 
 ```{r}
 gapminder %>% 
@@ -81,7 +81,7 @@ gapminder %>%
   theme_bw()
   
 ```
-
+With this
 Explore the effects of re-leveling a factor in a tibble by:
 
 comparing the results of arrange on the original and re-leveled factor.
