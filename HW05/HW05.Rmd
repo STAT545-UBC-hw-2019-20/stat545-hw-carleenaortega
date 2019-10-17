@@ -18,6 +18,7 @@ suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(knitr))
 suppressPackageStartupMessages(library(kableExtra))
+suppressPackageStartupMessages(library(scales))
 ```
 
 
@@ -28,12 +29,11 @@ In your own words, summarize the value of the here::here package in 250 words or
 
 # Exercise 2: Factor management
 
-We choose the `gapminder` dataset and select `continent` as the factor to explore. The code below determines whether gapminder's continent is a factor or not; how many levels it has and what these levels are.
+We choose the `gapminder` dataset and select `continent` as the factor to explore. The code below determines whether gapminder's continent is a factor or not; how many levels it has and what these levels are. In addition, we also use the str() command to show a summary of the dataset, including how many observations (rows) we have.
 ```{r}
 class(gapminder$continent)
 nlevels(gapminder$continent)
 levels(gapminder$continent)
-
 str(gapminder)
 ```
 We now know that `continent` is a factor with 5 levels named Africa, Americas, Asia, Europe, and Oceania. We also have 1704 rows or observations as shown by the str() function.
@@ -56,7 +56,7 @@ str(drop_Ocn)
 
 We have successfully filtered out the data from Oceania as we now have only 4 levels in continent named Africa, Americas, Asia, and Europe. The str() function also shows that we have 1680 observations, which is less than the original dataset (1704 observations).
 
-Our next goal is to explore the effects of re-leveling a factor with the gapminder data set.
+Our next goal is to explore the effects of re-leveling a factor with the gapminder data set. For this, we will use the summarized max gross domestic product (GDP) per capita of each continent.
 
 ```{r}
 drop_Ocn %>% 
@@ -64,12 +64,12 @@ drop_Ocn %>%
   mutate("max GDP"=max(gdpPercap)) %>% 
   ggplot()+
   geom_bar(aes(continent),colour="light blue", fill="light blue")+
-  labs(x="Continent",y=",ax GDP ($)",title="The Max GDP of continents (Original)")+
+  labs(x="Continent",y="Max GDP ($)",title="The Max GDP of continents (Original)")+
   theme_bw()
   
 ```
 
-By default, the continents are arranged alphabetically. We can use the forcats package (fct_infreq  and fct_rev() commands) to arrange the continents by frequence and in an ascending order of max (gross domestic product) GDP, respectively.
+By default, the continents are arranged alphabetically. We can use the forcats package (fct_infreq  and fct_rev() commands) to arrange the continents by frequence and in an ascending order of max  GDP, respectively.
 
 ```{r}
 drop_Ocn %>% 
@@ -82,11 +82,9 @@ drop_Ocn %>%
   
 ```
 
-This is a more appealing and understandable way of presenting the max GDP of each continent compared to the first plot.
+This is a more appealing and understandable way of presenting the max GDP of each continent compared to the first plot. It shows the plots in an ascending order that makes it easy to see that Americas has the lowest GDP and Africa has the highest and also to compare between continents.s
 
 # Exercise 3: File input/output (I/O)
-Task: Experiment with at least one of:
-
 
 For this exercise, we will modify the `gapminder` data set to show only data from Africa in 2007. We will then export this file using write_csv().
 ```{r}
@@ -96,22 +94,20 @@ gm_africa2007 <-gapminder %>%
 write_csv(gm_africa2007,here::here("./HW05","gm_africa2007.csv"))
 ```
 
-We will now reload the exported file back into R using read_csv() and play around its factor levels
+We will now reload the exported file back into R using read_csv() and play around its factor levels.
 
 ```{r}
 read_csv(here::here("./HW05/gm_africa2007.csv")) %>% 
   arrange(lifeExp) %>%
   ggplot()+
-  geom_point(aes(x=lifeExp,y=fct_reorder(country,lifeExp)))+
+  geom_point(aes(x=lifeExp,y=country))+
   labs(x="Country",y="Life Expectancy (years)",title="The Life Expectancy of African countries in 2007")+
   theme_bw()
 ```
 
-The life expectancy of Africans in 2007 ranges from around 40 to 79 with Swaziland having the lowest life expectancy and Reunion with the highest life expectancy.
-
-We exclude the countries with a life expectancy less than 50 years using filter() and droplevels() in the following plot:
+The original plot is arranged alphabetically by default. This is preferred for some tasks but for our purpose, we will rearrange the countries in an ascending order according to their life expectancies using fct_order(). We will also exclude the countries with a life expectancy less than 50 years using filter() and droplevels() as additional exploration of the forcats package.
 ```{r warning= FALSE}
-read_csv(here::here("./HW05/gm_africa2007.csv")) %>% 
+read_csv(here::here("./HW05/gm_africa2007.csv")) %>%
   filter(lifeExp>50) %>% 
   droplevels() %>% 
   ggplot()+
@@ -119,6 +115,8 @@ read_csv(here::here("./HW05/gm_africa2007.csv")) %>%
   labs(x="Country",y="Life Expectancy (years)",title="The Life Expectancy of African countries in 2007")+
   theme_bw()
 ```
+
+The life expectancy of Africans in 2007 ranges from around 40 to 79 with Swaziland having the lowest life expectancy and Reunion with the highest life expectancy.
 
 We have successfully exported, imported, and modified the gm_africa2007 file. Therefore, I can say that it has successfully passed being written to file and being read back in.
 
@@ -136,8 +134,20 @@ gapminder %>%
     Canadians with respect to Population") +
   theme_light()
 ```
+I noticed that the data points are not shown, the axes do not start at zero, and the line has both blue and grey colours which are not explained in a legend, and that geom_smooth is not the best functio to plot the data.I will further improve the plot by applying the principles I have learned about effective plotting. The plot is as follows:
+```{r warning=FALSE}
+Can_LEpop<-gapminder %>%
+  filter(country=="Canada")
 
-
+Can_LEpop %>% 
+  ggplot(aes(lifeExp, pop)) +
+  geom_point(size=3)+
+  geom_line()+
+  xlim(72,80)+
+  labs(x="Life Expectancy", y="Population", title="The Life Expectancy of 
+    Canadians with respect to Population") +
+  theme_light()
+```
 
 
 # Exercise 5: Writing figures to file (10%)
@@ -149,3 +159,9 @@ Then, use ![Alt text] (/path/to/img.png) to load and embed that file into your r
 Arguments of ggsave(), such as width, height, resolution or text scaling.
 Various graphics devices, e.g. a vector vs. raster format.
 Explicit provision of the plot object p via ggsave(..., plot = p). Show a situation in which this actually matters.
+
+```{r}
+Can_LEpop
+  ggsave(filename = "LE of canadians wrt Pop", plot="Can_LEpop",device=png(),path="./HW05/")
+```
+
