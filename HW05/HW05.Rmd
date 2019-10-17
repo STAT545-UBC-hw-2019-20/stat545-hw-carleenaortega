@@ -83,7 +83,6 @@ drop_Ocn %>%
 ```
 
 This is a more appealing and understandable way of presenting the max GDP of each continent compared to the first plot.
-Explore the effects of re-leveling a factor in a tibble by:
 
 # Exercise 3: File input/output (I/O)
 Task: Experiment with at least one of:
@@ -94,6 +93,16 @@ dput()/dget().
 You are expected to create something new, probably by filtering or grouped-summarization of your dataset (for e.g., Singer, Gapminder, or another dataset), export it to disk and then reload it back in using one of the packages above. You should use here::here() for reading in and writing out.
 
 With the imported data, play around with factor levels and use factors to order your data with one of your factors (i.e. non-alphabetically). For the I/O method(s) you chose, comment on whether or not your newly created file survived the round trip of writing to file then reading back in.
+
+```{r}
+
+gm_asia2000<-gapminder %>% 
+  filter(year == 2000, continent=="Asia")
+
+
+  
+```
+
 
 # Exercise 4: Visualization design (20%)
 Rubric:
