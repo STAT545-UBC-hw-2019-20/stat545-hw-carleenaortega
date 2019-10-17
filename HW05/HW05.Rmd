@@ -81,7 +81,8 @@ drop_Ocn %>%
   theme_bw()
   
 ```
-This is a more appealing and understandable way of presenting the max GDP of each continent compared to the plot above
+
+This is a more appealing and understandable way of presenting the max GDP of each continent compared to the first plot.
 Explore the effects of re-leveling a factor in a tibble by:
 
 
