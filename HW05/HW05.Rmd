@@ -28,14 +28,26 @@ In your own words, summarize the value of the here::here package in 250 words or
 
 # Exercise 2: Factor management
 
-We choose the `gapminder` dataset and select `continent` as the factor to explore. The code below determines whether gapminder's continent is a factor (TRUE) or not (FALSE).
+We choose the `gapminder` dataset and select `continent` as the factor to explore. The code below determines whether gapminder's continent is a factor or not; how many levels it has and what these levels are.
 ```{r}
-is.factor(gapminder$continent)
+class(gapminder$continent)
+nlevels(gapminder$continent)
+levels(gapminder$continent)
 ```
+We now know that `continent` is a factor with 5 levels named Africa, Americas, Asia, Europe, and Oceania.
 
-Now that we have verified that `continent` is truly a factor, our next step is to explore the effects of re-leveling a factor with the gapminder data set.
+Now that we have verified that `continent` is a factor, our next step is to explore the effects of re-leveling a factor with the gapminder data set. We drop the observations from the continent of Oceania. 
 
-We drop the observations from the continent of Oceania. 
+```{r}
+drop_Ocn<-gapminder %>% 
+  filter(continent !="Oceania") %>% 
+  droplevels()
+
+drop_Ocn$continent %>% 
+  nlevels()
+
+
+```
 
 
 Drop Oceania. Filter the Gapminder data to remove observations associated with the continent of Oceania. /Additionally, remove unused factor levels. Provide concrete information on the data before and after removing these rows and Oceania; address the number of rows and the levels of the affected factors.
