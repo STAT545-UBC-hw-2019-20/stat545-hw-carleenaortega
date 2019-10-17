@@ -85,34 +85,6 @@ drop_Ocn %>%
 This is a more appealing and understandable way of presenting the max GDP of each continent compared to the first plot.
 Explore the effects of re-leveling a factor in a tibble by:
 
-
-```{r}
-gapminder %>% 
-  filter(continent !="Oceania") %>% 
-  arrange(continent) %>% 
-knitr::kable() %>% 
-kable_styling("striped")
-```
-
-
-
-```{r}
-b<-gapminder %>% 
-  filter(continent !="Oceania") %>% 
-  droplevels("country")
-knitr::kable(b) %>% 
-  kable_styling("striped")
-```
-
-
-
-```{r}
-gapminder
-```
-
-
-
-
 # Exercise 3: File input/output (I/O)
 Task: Experiment with at least one of:
 
