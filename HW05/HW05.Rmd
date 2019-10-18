@@ -58,17 +58,18 @@ Our next goal is to explore the effects of re-leveling a factor with the modifie
 
 ```{r}
 drop_Ocn %>% 
-  group_by(continent) %>% 
-  mutate("max GDP"=max(gdpPercap)) %>% 
-  arrange(gdpPercap) %>% 
-  ggplot()+
-  geom_bar(aes(continent),colour="light blue", fill="light blue")+
+  select(continent,gdpPercap) %>% 
+  group_by(continent) %>%
+  summarize(maxGDP=max(gdpPercap)) %>% 
+  arrange(maxGDP) %>% 
+  ggplot(aes(x= continent, y =maxGDP))+
+  geom_bar(stat='identity', colour="light blue", fill="light blue")+
   labs(x="Continent",y="Max GDP ($)",title="The Max GDP of Continents (Original)")+
+  scale_y_continuous(labels=comma)+
   theme_bw()
- 
 ```
 
-The arrange() command applies just to the tibble and did not affect the plot so the continents are arranged in the default alphabetic
+The arrange() command applies just to the tibble and did not affect the plot so the continents are arranged in the default alphabetic order.
 
 
 ```{r}
