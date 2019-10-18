@@ -25,10 +25,9 @@ suppressPackageStartupMessages(library(here))
 
 In your own words, summarize the value of the here::here package in 250 words or fewer.
 
-`If you wanted to make your Rproj more portable and accessible to more users in a cross-platform (between Mac, Unix, Windows users), rather than specifying every path explicitly, here::here() allows you to set relative paths much more easily.
+The here::here package is similar to the base R function file.path() since it allows the user to write files safely along paths. One of the advantages of the here::here package over is that it can be recognized by different platforms(Windows, Apple, etc.). Another advantage of the here::here package is the ability to save files along a pathway without explicitly stating the pathway, which saves time and is less frustrating. It can also load files and save them in a different pathway (if desired) without the hassle of figuring out and stating the entire pathways. It is also allows the reproducibility of files as it allows other people to run your code. Lastly, it allows opening .R files when using a new session.
 
-For example, create a new folder “data” and within it a subfolder called “cm011_data”, specify here() and then save a file to that location with these commands:
-`
+
 # Exercise 2: Factor management
 
 We choose the `gapminder` dataset and select `continent` as the factor to explore. The code below determines whether gapminder's continent is a factor or not; how many levels it has and what these levels are. In addition, we also use the str() command to show a summary of the dataset, including how many observations (rows) we have.
@@ -107,30 +106,28 @@ We will now reload the exported file back into R using read_csv() and play aroun
 ```{r}
 read_csv(here::here("HW05","gm_africa2007.csv")) %>% 
   arrange(lifeExp) %>%
-  ggplot(height=500)+
+  ggplot()+
   geom_point(aes(x=lifeExp,y=country))+
   labs(x="Country",y="Life Expectancy (years)",title="The Life Expectancy of African Countries in 2007")+
   theme_bw(base_size=9.5)
 ```
 
 The original plot is arranged alphabetically by default. This is preferred for some tasks but for our purpose, we will rearrange the countries in an ascending order according to their life expectancies using fct_order().
-```{r}
-read_csv(here::here("./HW05/gm_africa2007.csv")) %>%
+
+```{r African 2007 LE plot}
+read_csv(here::here("HW05","gapminder_africa2007.csv")) %>%
   ggplot()+
   geom_point(aes(x=lifeExp,y=fct_reorder(country,lifeExp)))+
   labs(x="Country",y="Life Expectancy (years)",title="The Life Expectancy of African countries in 2007")+
   theme_bw(base_size=9.5)+
-  ggsave("African 2007 LE.png")
+  ggsave("African 2007 LE.png",height=6,width=5)
 ```
-#remove slashes but use ""
 
 The life expectancy of Africans in 2007 ranges from around 40 to 79 with Swaziland having the lowest life expectancy and Reunion with the highest life expectancy.
 
-We have successfully exported, imported, and modified the gm_africa2007 file. Therefore, I can say that it has successfully passed being written to file and being read back in.
+We have successfully exported, imported, and modified the gapminder_africa2007 file. Therefore, I can say that it has successfully passed being written to file and being read back in.
 
 # Exercise 4: Visualization design
-
-Task: Create a side-by-side plot and juxtapose your first attempt (show the original figure as-is) with a revised attempt after some time spent working on it and implementing principles of effective plotting principles. Comment and reflect on the differences.
 
 I have chosen to revise the plot I made for HW02 Exercise 3.2. The code and plot are as follows:
 ```{r warning=FALSE}
@@ -143,7 +140,7 @@ gapminder %>%
   theme_light()
 ```
 
-I noticed that the data points are not shown, the axes do not start at zero, and the line has both blue and grey colours which are not explained in a legend, and that geom_smooth is not the best functio to plot the data.
+I noticed that the data points are not shown, the axes do not start at zero, and the line has both blue and grey colours which are not explained in a legend, and that geom_smooth is not the best function to plot the data.
 
 I will further improve the plot by applying the principles I have learned about effective plotting. The plot is as follows:
 ```{r warning=FALSE}
@@ -153,26 +150,23 @@ Can_LEpop<-gapminder %>%
 Can_LEpop %>% 
   ggplot(aes(lifeExp, pop)) +
   geom_point(size=3)+
-  geom_line()+
-  xlim(72,80)+
+  geom_line(color="black")+
+  scale_x_continuous(limits=c(72,78),breaks=seq(72,78, by=2))+
+  scale_y_continuous(labels=comma,limits=c(20500000,29000000),breaks=seq(20500000,29000000, by=1000000))+
   labs(x="Life Expectancy", y="Population", title="The Life Expectancy of 
     Canadians with respect to Population") +
   theme_light()
 ```
 
+The improved graph includes the data points, shows axes lines that make it easier to determine the point's location, and also shows the y-axis numbers in a readable format as opposed to the scientific notation in the older plot version. I left the axes ranges as is since although we learned in the lecture that the plots should usually start at zero because the values are really high so starting from zero would squeeze the data points together and will also leave a lot of blank space, which I think would make it harder for the observer to understand the plot.
 
-# Exercise 5: Writing figures to file (10%)
+# Exercise 5: Writing figures to file 
 
-Task: Use ggsave() to explicitly save a plot to file. Include the exported plot as part of your repository and assignment.
+For this exercise, I saved the second plot in Exercise 3 called "African 2007 LE". We can load and embed it to this report as follows:
 
-Then, use ![Alt text] (/path/to/img.png) to load and embed that file into your report. You can play around with various options, such as:
-
-Arguments of ggsave(), such as width, height, resolution or text scaling.
-Various graphics devices, e.g. a vector vs. raster format.
-Explicit provision of the plot object p via ggsave(..., plot = p). Show a situation in which this actually matters.
-
-3```{r}
-Can_LEpop
-  ggsave(filename = "LE of canadians wrt Pop", plot="Can_LEpop",device=png(),path="./HW05/")
+```{r message=FALSE, warning=FALSE}
+# ![plot](/Users/carleenaortega/Documents/STAT 545A/HW/stat545-hw-carleenaortega/HW05/African 2007 LE.png)
 ```
+When using the ggsave() command, we need to explicitly determine plot in ggsave when we want to save a plot other than the last one that was saved.
+
 
