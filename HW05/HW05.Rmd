@@ -1,7 +1,7 @@
 ---
 title: 'HW05: Factor and Figure Management'
 author: "Carleena Ortega"
-date: "14/10/2019"
+date: "17/10/2019"
 output: 
   html_document:
     toc: true
@@ -11,14 +11,12 @@ output:
 
 ```{r}
 suppressPackageStartupMessages(library(gapminder))
-suppressPackageStartupMessages(library(tibble))
 suppressPackageStartupMessages(library(forcats))
 suppressPackageStartupMessages(library(ggplot2))
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(dplyr))
-suppressPackageStartupMessages(library(knitr))
-suppressPackageStartupMessages(library(kableExtra))
 suppressPackageStartupMessages(library(scales))
+suppressPackageStartupMessages(library(here))
 ```
 
 
@@ -65,7 +63,7 @@ drop_Ocn %>%
   arrange(gdpPercap) %>% 
   ggplot()+
   geom_bar(aes(continent),colour="light blue", fill="light blue")+
-  labs(x="Continent",y="Max GDP ($)",title="The Max GDP of continents (Original)")+
+  labs(x="Continent",y="Max GDP ($)",title="The Max GDP of Continents (Original)")+
   theme_bw()
  
 ```
@@ -80,7 +78,7 @@ drop_Ocn %>%
   summarize(maxGDP=max(gdpPercap)) %>% 
   ggplot(aes(x= fct_reorder(continent,maxGDP), y =maxGDP)) +
   geom_bar(stat = 'identity',colour="royal blue",fill="royal blue")+
-  labs(x="Continent",y="Max GDP ($)",title="The Max GDP of continents (Reordered)")+
+  labs(x="Continent",y="Max GDP ($)",title="The Max GDP of Continents (Reordered)")+
   scale_y_continuous(labels=comma)+
   theme_bw()
 ```
@@ -100,7 +98,7 @@ write_csv(gm_africa2007,here::here("HW05","gm_africa2007.csv"))
 
 We will now reload the exported file back into R using read_csv() and play around its factor levels.
 
-```{r"}
+```{r}
 read_csv(here::here("HW05","gm_africa2007.csv")) %>% 
   arrange(lifeExp) %>%
   ggplot()+
@@ -167,7 +165,7 @@ Arguments of ggsave(), such as width, height, resolution or text scaling.
 Various graphics devices, e.g. a vector vs. raster format.
 Explicit provision of the plot object p via ggsave(..., plot = p). Show a situation in which this actually matters.
 
-```{r}
+3```{r}
 Can_LEpop
   ggsave(filename = "LE of canadians wrt Pop", plot="Can_LEpop",device=png(),path="./HW05/")
 ```
