@@ -9,7 +9,7 @@ This repository contains my submissions for **STAT 545A Assignments** for Fall 2
 |:heavy_check_mark:|HW2 | September 27 |[HW2](https://stat545-ubc-hw-2019-20.github.io/stat545-hw-carleenaortega/HW2/HW2-Submission.html)|
 |:heavy_check_mark:|HW3 | October 1 |[HW3](https://stat545-ubc-hw-2019-20.github.io/stat545-hw-carleenaortega/HW3/HW03.html)|
 |:heavy_check_mark:|HW4 | October 11 |[HW4](https://stat545-ubc-hw-2019-20.github.io/stat545-hw-carleenaortega/HW4/HW4-vFinal.html)|
-|:radio_button:|HW5 | October 18|[HW5](https://stat545-ubc-hw-2019-20.github.io/stat545-hw-carleenaortega/HW05/HW05.html)|
+|:heavy_check_mark:|HW5 | October 18|[HW5](https://stat545-ubc-hw-2019-20.github.io/stat545-hw-carleenaortega/HW05/HW05.html)|
 
 ## Introduction
 My name is Carleena Ortega :woman:. I moved from Toronto :snowman: to Vancouver :sunny: to pursue my Masters in Experimental Medicine at UBC. 
